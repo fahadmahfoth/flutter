@@ -119,6 +119,31 @@ class SignUp {
       print('Response body : ${response.body}');
     });
   }
+    void updateCardData(
+      {int user_id,
+      int service_id,
+      String numPhone,
+      String location}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'token';
+    final value = prefs.get(key) ?? null;
+
+    String myUrl =
+        "http://herfa.codeforiraq.org/api/cards/25";
+    http.put(myUrl, headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $value'
+    }, body: {
+      "service_id": "$service_id",
+      "numPhone": "$numPhone",
+      "location": "$location",
+    }).then((response) {
+      print('Response status : ${response.statusCode}');
+      print('Response body : ${response.body}');
+    });
+  }
+
+
     Future getUser() async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'token';
@@ -140,30 +165,21 @@ class SignUp {
     }
   }
 
-
-      Future getUserData() async {
+      Future getusercard(int user_id) async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'token';
     final value = prefs.get(key) ?? 0;
     try {
       final response = await http
-          .get("http://herfa.codeforiraq.org/api/getUserinfo", headers: {
+          .get("http://herfa.codeforiraq.org/api/cards/$user_id", headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer $value'
       });
 
       if (response.statusCode == HttpStatus.ok) {
         var result = jsonDecode(response.body);
-        // print(result);
-        final user = User(
-          key: result["data"]["key"],
-          name:result["data"]["name"],
-          email:result["data"]["email"],
-          emailVerifiedAt:result["data"]["email_verified_at"],
-          createdAt:result["data"]["created_at"],
-          updatedAt:result["data"]["updated_at"],);
-          print(user.key);
-        return user ;
+         print(result);
+        return result["data"];
       }
     } catch (e) {
       print("Error Download Data .. SOON");
@@ -171,25 +187,58 @@ class SignUp {
   }
 
 
+
+
+
+
+
+  //     Future getUserData() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final key = 'token';
+  //   final value = prefs.get(key) ?? 0;
+  //   try {
+  //     final response = await http
+  //         .get("http://herfa.codeforiraq.org/api/cards/21", headers: {
+  //       'Accept': 'application/json',
+  //       'Authorization': 'Bearer $value'
+  //     });
+
+  //     if (response.statusCode == HttpStatus.ok) {
+  //       var result = jsonDecode(response.body);
+  //       // print(result);
+  //       final user = CardUser(
+  //         key: result["data"]["key"],
+  //         userId:result["data"]["user_id"],
+  //         serviceId:result["data"]["service_id"],
+  //         numPhone:result["data"]["numPhone"],
+
+  //         location:result["data"]["location"],);
+
+  //         print(user.location);
+
+  //       return user ;
+  //     }
+  //   } catch (e) {
+  //     print("Error Download Data .. SOON");
+  //   }
+  // }
+
+
 }
 
+// class CardUser {
+//     int key;
+//     int userId;
+//     int serviceId;
+//     String numPhone;
+//     String location;
 
+//     CardUser({
+//         this.key,
+//         this.userId,
+//         this.serviceId,
+//         this.numPhone,
+//         this.location,
+//     });
+// }
 
-
-class User {
-    int key;
-    String name;
-    String email;
-    dynamic emailVerifiedAt;
-    DateTime createdAt;
-    DateTime updatedAt;
-
-    User({
-        this.key,
-        this.name,
-        this.email,
-        this.emailVerifiedAt,
-        this.createdAt,
-        this.updatedAt,
-    });
-}

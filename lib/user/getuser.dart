@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:herfa_test/screen/addcard.dart';
+import 'package:herfa_test/screen/updatecard.dart';
 import 'package:herfa_test/user/usertoken.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,8 +25,7 @@ class _tabsHomeState extends State<Profile> {
     prefs.setString(key, value);
   }
 
-
-SignUp guser = SignUp();
+  SignUp guser = SignUp();
 
   Future<Null> _refresh() async {
     setState(() {
@@ -44,17 +44,12 @@ SignUp guser = SignUp();
     }
   }
 
-
-
-
-
   @override
   void initState() {
     read();
     super.initState();
     guser.getUser();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -100,102 +95,115 @@ class Newscard extends StatelessWidget {
     prefs.setString(key, value);
   }
 
-  Newscard({this.user_id, this.name, this.email, this.created_at, this.updated_at});
+  Newscard(
+      {this.user_id, this.name, this.email, this.created_at, this.updated_at});
   final int user_id;
   final String name;
   final String email;
   final String created_at;
   final String updated_at;
 
-var value;
-  
- readcard() async {
+  var value;
+
+  readcard() async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'addcard';
-    value = prefs.get(key ) ?? null;
-    print(value);
+    value = prefs.get(key) ?? null;
+    // print(value);
   }
 
+  SignUp getcard = SignUp();
 
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
 
-    return new Scaffold(
-        backgroundColor: Colors.transparent,
-        body: new Container(
-            child: new Column(
-          children: <Widget>[
-            new Padding(
-              padding: new EdgeInsets.only(left: _width / 8, right: _width / 8),
-            ),
-            new SizedBox(
-              height: _height / 20,
-            ),
-            new Text(
-              '$name',
-              style: new TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: _width / 15,
-                  color: Colors.black.withOpacity(0.9)),
-            ),
-            new Padding(
-              padding: new EdgeInsets.only(
-                  top: _height / 15, left: _width / 8, right: _width / 8),
-            ),
-            new Padding(
-              padding: new EdgeInsets.only(left: _width / 8, right: _width / 8),
-              child: new Text(
-                email,
-                style: new TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: _width / 25,
-                    color: Colors.black),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40),
-              child: new Divider(
-                height: _height / 30,
-                color: Colors.black,
-              ),
-            ),
 
-             
-              Padding(
-              padding: EdgeInsets.all(10),
-              child: Container(
-                // height: MediaQuery.of(context).size.height / 15,
-                // width: MediaQuery.of(context).size.width / 2.5,
-                child: OutlineButton(
-                  borderSide: BorderSide(
-                      color: Colors.black.withOpacity(0.5), width: 2),
-                  focusColor: Colors.red,
-                  color: Colors.red,
-                  child: Text(
-                    
-                    readcard()==null?"انشاء بطاقة ":"تعديل البطاقة",
-                    style: TextStyle(fontSize: 25),
+    return FutureBuilder(
+      future: getcard.getusercard(user_id),
+      builder: (BuildContext context, snapshot) {
+        if (snapshot.hasData) {
+          var cardData = snapshot.data;
+          var key = cardData["key"];
+          var name = cardData["user name"];
+          var Job = cardData["Job"];
+          var numPhone = cardData["numPhone"];
+          var location = cardData["location"];
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('البطاقة التعريفية',),
+              centerTitle: true,
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+              automaticallyImplyLeading: false,
+            ),
+            body: Container(
+              child: ListView(
+                children: <Widget>[
+                  ListTile(
+                    title: Text(
+                      "الاسم",
+                      textAlign: TextAlign.right,
+                    ),
+                    subtitle: Text(
+                      name,
+                      textAlign: TextAlign.right,
+                      style: TextStyle(fontSize: 30),
+                    ),
                   ),
-                  onPressed: () {
-                  //  print(id);
-                  readcard()==null?  Navigator.push(context, MaterialPageRoute(
-                      builder: (context){
-                        return AddPageOne(user_id);
-                      }
-                    )):print("object");
-
-                    readcard();
-                  },
-                ),
+                  ListTile(
+                    title: Text(
+                      "الايميل",
+                      textAlign: TextAlign.right,
+                    ),
+                    subtitle: Text(
+                      email,
+                      textAlign: TextAlign.right,
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "رقم الهاتف",
+                      textAlign: TextAlign.right,
+                    ),
+                    subtitle: Text(
+                      numPhone,
+                      textAlign: TextAlign.right,
+                      style: TextStyle(fontSize: 30),
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "الحرفة",
+                      textAlign: TextAlign.right,
+                    ),
+                    subtitle: Text(
+                      Job,
+                      textAlign: TextAlign.right,
+                      style: TextStyle(fontSize: 30),
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "العنوان",
+                      textAlign: TextAlign.right,
+                    ),
+                    subtitle: Text(
+                      location,
+                      textAlign: TextAlign.right,
+                      style: TextStyle(fontSize: 30),
+                    ),
+                  ),
+                ],
               ),
             ),
-          
-         
-          ],
-        )));
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
   }
-
 }

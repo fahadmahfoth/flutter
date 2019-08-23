@@ -176,7 +176,7 @@ SignUp addcard = SignUp();
                 
                 controller: _phcontroller,
                 textAlign: TextAlign.right,
-                maxLength: 150,
+                maxLength: 11,
                 autofocus: true,
                 keyboardType: TextInputType.number,
                 enableInteractiveSelection: false,   
@@ -195,7 +195,7 @@ SignUp addcard = SignUp();
                 
                 controller: _controller,
                 textAlign: TextAlign.right,
-                maxLength: 11,
+                maxLength: 100,
                 autofocus: true,
                 enableInteractiveSelection: false,   
                 cursorColor: CupertinoColors.destructiveRed, 
