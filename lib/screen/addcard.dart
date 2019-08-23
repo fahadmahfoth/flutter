@@ -67,7 +67,7 @@ class _ServesState extends State<AddPageOne> {
                             itemBuilder: (BuildContext context, int i) {
 // Text(snapshot.data[i]["name"].toString()),
                               var mydata = snapshot.data[i];
-                              print(mydata["key"]);
+                              // print(mydata["key"]);
                               return Container(
                                 child: NewServ(
                                     user_id: user_id,
