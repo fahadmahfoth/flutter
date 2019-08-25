@@ -53,7 +53,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 width: MediaQuery.of(context).size.width / 2,
                 child: OutlineButton(
                   onPressed: (){
-                    userdata.getusercard();
+                    // userdata.getusercard();
 
                   },
                   child: Text("تواصل معنا",style:TextStyle(fontSize: 20)),

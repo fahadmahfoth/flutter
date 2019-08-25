@@ -130,6 +130,18 @@ class Newscard extends StatelessWidget {
           var location = cardData["location"];
           return Scaffold(
             appBar: AppBar(
+              actions: <Widget>[
+                IconButton(
+                  icon:Icon(CupertinoIcons.pen),
+                   onPressed: (){
+                     Navigator.push(context, MaterialPageRoute(
+                       builder: (context){
+                         return UpdatePageOne(user_id);
+                       }
+                     ));
+                   },
+                )
+              ],
               title: Text('البطاقة التعريفية',),
               centerTitle: true,
               backgroundColor: Colors.transparent,
@@ -147,9 +159,11 @@ class Newscard extends StatelessWidget {
                     subtitle: Text(
                       name,
                       textAlign: TextAlign.right,
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 25),
                     ),
                   ),
+                                    Padding(padding: EdgeInsets.fromLTRB(100, 2, 5, 2),child: Divider(color: Colors.black,),),
+
                   ListTile(
                     title: Text(
                       "الايميل",
@@ -169,9 +183,12 @@ class Newscard extends StatelessWidget {
                     subtitle: Text(
                       numPhone,
                       textAlign: TextAlign.right,
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 25),
                     ),
                   ),
+                                    Padding(padding: EdgeInsets.fromLTRB(100, 2, 5, 2),child: Divider(color: Colors.black,),),
+
+                  
                   ListTile(
                     title: Text(
                       "الحرفة",
@@ -180,7 +197,7 @@ class Newscard extends StatelessWidget {
                     subtitle: Text(
                       Job,
                       textAlign: TextAlign.right,
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 25),
                     ),
                   ),
                   ListTile(
@@ -191,7 +208,7 @@ class Newscard extends StatelessWidget {
                     subtitle: Text(
                       location,
                       textAlign: TextAlign.right,
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 25),
                     ),
                   ),
                 ],

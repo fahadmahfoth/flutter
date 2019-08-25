@@ -85,7 +85,7 @@ class _ServesState extends State<UpdatePageOne> {
                     )),
               ));
         } else {
-          return Center(child: CircularProgressIndicator());
+          return Container(color: Colors.white,child: Center(child: CircularProgressIndicator()));
         }
       },
     );
@@ -236,7 +236,7 @@ SignUp addcard = SignUp();
                     numPhone: _phcontroller.text.trim(),
                     location: _controller.text
                   );
-                  // Navigator.pop(context);
+                   Navigator.pushReplacementNamed(context,"interface");
                   // _saveadd("card added");
                   
                 },

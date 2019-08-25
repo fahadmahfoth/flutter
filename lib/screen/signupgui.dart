@@ -20,6 +20,14 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
+    readtwo() async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'token';
+    final value = prefs.get(key ) ?? null;
+    return value;
+
+  }
+
 @override
 initState(){
   read();
@@ -42,11 +50,12 @@ initState(){
         databaseHelper.registerData(_nameController.text.trim(),_emailController.text.trim().toLowerCase(),
 
             _passwordController.text.trim()).whenComplete((){
-          if(databaseHelper.status){
+          if(readtwo()==null){
+            print(readtwo());
             _showDialog();
             msgStatus = 'Check your information';
           }else{
-            Navigator.pushReplacementNamed(context, 'interface');
+            Navigator.pushReplacementNamed(context, 'addcard');
 
 
           }

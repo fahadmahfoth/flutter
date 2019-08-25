@@ -22,8 +22,8 @@ class _HomeState extends State<Home> {
     return MaterialApp(
       theme: ThemeData(
           fontFamily: "gen01",
-          cardColor: CupertinoColors.white,
-          canvasColor: CupertinoColors.lightBackgroundGray,
+          cardColor: CupertinoColors.extraLightBackgroundGray,
+          canvasColor: CupertinoColors.white,
           appBarTheme: AppBarTheme(
               iconTheme: IconThemeData(color: CupertinoColors.destructiveRed),
               textTheme: TextTheme(
@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
         "cards": (context) => Cards(),
         "intro": (context) => IntroScreen(),
         "addser":(context) => AddServ(),
-         "addcard":(context) => AddPageOne(1),
+         "addcard":(context) => AddPageZero(),
       },
       initialRoute: "intro",
     );

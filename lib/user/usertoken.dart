@@ -37,12 +37,12 @@ class SignUp {
     var data = json.decode(response.body);
     print('data : ${data["data"]["token"]}');
     _save(data["data"]["token"]);
-    if (status) {
-      print('data : ${data["error"]}');
-    } else {
-      print('data : ${data["token"]}');
-      _save(data["data"]["token"]);
-    }
+    // if (status) {
+    //   print('data : ${data["error"]}');
+    // } else {
+    //   print('data : ${data["token"]}');
+    //   _save(data["data"]["token"]);
+    // }
   }
 
   _save(String token) async {

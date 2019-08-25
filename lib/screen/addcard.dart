@@ -10,9 +10,31 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cards.dart';
 
+class AddPageZero extends StatelessWidget {
+  SignUp guuser = SignUp();
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+    future: guuser.getUser(),
+    builder: (BuildContext context , snapshot){
+      if(snapshot.hasData){
+        return AddPageOne(
+          user_id:snapshot.data["key"]
+
+        );
+      }else{
+          return Container(color: Colors.white,child: Center(child: CircularProgressIndicator()));
+      }
+      
+    },
+    );
+  }
+}
+
 class AddPageOne extends StatefulWidget {
+  
   int user_id;
-  AddPageOne(this.user_id);
+  AddPageOne({this.user_id});
   @override
   _ServesState createState() => _ServesState(user_id);
 }
@@ -85,7 +107,7 @@ class _ServesState extends State<AddPageOne> {
                     )),
               ));
         } else {
-          return Center(child: CircularProgressIndicator());
+          return Container(color: Colors.white,child: Center(child: CircularProgressIndicator()));
         }
       },
     );
@@ -95,7 +117,6 @@ class _ServesState extends State<AddPageOne> {
 class NewServ extends StatelessWidget {
   int user_id;
   String name;
-
   int ser_id;
   NewServ({this.user_id, this.ser_id, this.name});
 
@@ -234,7 +255,7 @@ SignUp addcard = SignUp();
                     numPhone: _phcontroller.text.trim(),
                     location: _controller.text
                   );
-                  Navigator.pop(context);
+                  Navigator.pushReplacementNamed(context, "interface");
                   _saveadd("card added");
                   
                 },

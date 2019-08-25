@@ -23,6 +23,15 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+      readtwo() async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'token';
+    final value = prefs.get(key ) ?? null;
+    print(value);
+    return value;
+
+  }
+
 @override
 initState(){
   read();
@@ -43,7 +52,8 @@ initState(){
           _passwordController.text.trim().isNotEmpty ){
         databaseHelper.loginData(_emailController.text.trim().toLowerCase(),
             _passwordController.text.trim()).whenComplete((){
-              if(databaseHelper.status){
+              if(readtwo()==null){
+                readtwo();
                 _showDialog();
                 msgStatus = 'Check email or password';
 
