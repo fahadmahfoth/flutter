@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:herfa_test/screen/addcard.dart';
 import 'package:herfa_test/screen/addverves.dart';
-import 'package:herfa_test/screen/intro.dart';
 import 'package:herfa_test/screen/mydrawer.dart';
 import 'package:herfa_test/screen/servece.dart';
 import 'package:herfa_test/user/getuser.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'cards.dart';
 import 'logingui.dart';
@@ -16,18 +14,14 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-
 class _HomeState extends State<Home> {
-    readIntro() async {
-    final prefs = await SharedPreferences.getInstance();
-    final key = 'intro';
-    final value = prefs.get(key) ?? 0;
-    print('read : $value');
-    if(value=="0"){
-      return true ;
- 
-    }
-  }
+  bool themdata = false;
+
+
+
+  SignUp userdata = SignUp();
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,28 +38,35 @@ class _HomeState extends State<Home> {
                       fontFamily: "gen01"))),
           accentColor: CupertinoColors.destructiveRed),
       routes: {
-        "interface": (context) => InterFace(),
+        "interface": (context) => InterFace(themdata),
         "login": (context) => LoginPage(),
         "profile": (context) => Profile(),
         "cards": (context) => Cards(),
-        "intro": (context) => readIntro()=="0"?IntroScreen():InterFace(),
-        "addser":(context) => AddServ(),
-         "addcard":(context) => AddPageZero(),
+        // "intro": (context) => IntroScreen(),
+        "addser": (context) => AddServ(),
+        "addcard": (context) => AddPageZero(),
       },
-      initialRoute: "intro",
+       initialRoute: "interface",
+
     );
   }
 }
 
 class InterFace extends StatefulWidget {
+  InterFace(this.themdata);
+  bool themdata = false;
+
   @override
-  _InterFaceState createState() => _InterFaceState();
+  _InterFaceState createState() => _InterFaceState(themdata);
 }
 
 class _InterFaceState extends State<InterFace> {
+  _InterFaceState(this.themdata);
+  bool themdata;
+
   int _selectedPage = 0;
 
-  final _pageOptions = [Serves(), Profile(),PageOne()];
+  final _pageOptions = [Serves(), Profile(), PageOne()];
 
   @override
   void initState() {
@@ -84,7 +85,6 @@ class _InterFaceState extends State<InterFace> {
         ),
         endDrawer: MyDrawer(),
         bottomNavigationBar: BottomNavigationBar(
-          
           backgroundColor: Colors.pink,
           currentIndex: _selectedPage,
           onTap: (int index) {
@@ -97,18 +97,15 @@ class _InterFaceState extends State<InterFace> {
           unselectedItemColor:
               CupertinoColors.darkBackgroundGray.withOpacity(0.7),
           items: [
-             BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 title: Text("الحرف"),
                 icon: SizedBox(
                     height: 40, child: Image.asset("assets/group.png"))),
-
-           
             BottomNavigationBarItem(
                 title: Text("الملف الشخصي"),
                 icon: Icon(CupertinoIcons.person),
                 activeIcon: Icon(Icons.person)),
-
-                      BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 title: Text("حول"),
                 icon: Icon(CupertinoIcons.info),
                 activeIcon: Icon(Icons.info)),
@@ -132,123 +129,117 @@ class PageOne extends StatelessWidget {
               width: MediaQuery.of(context).size.width - 100,
               child: Stack(
                 fit: StackFit.expand,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(
-                              "assets/bb.jpg")
-                              )
-                              ),
-                ),
-                Positioned(
-                  top: 10,
-                  right: 10,
-                  child: Text(
-                    "حرفة",
-                    style: TextStyle(fontSize: 40),
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage("assets/bb.jpg"))),
                   ),
-                ),
-                Positioned(
-                  top: 70,
-                  right: 10,
-                  child: Text(
-                    """التطبيق يتيح للمستخدم ان يبحث 
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Text(
+                      "حرفة",
+                      style: TextStyle(fontSize: 40),
+                    ),
+                  ),
+                  Positioned(
+                    top: 70,
+                    right: 10,
+                    child: Text(
+                      """التطبيق يتيح للمستخدم ان يبحث 
                   عن الحرفي الذي يريده 
                   
                   """,
-                  textAlign: TextAlign.right,
-                    style: TextStyle(fontSize: 15,color: CupertinoColors.white,shadows: [
-                      BoxShadow(
-                        blurRadius: 10,
-                        offset: Offset(1.0, 1.0),
-                        spreadRadius: 1000
-
-                      )
-                    ]),
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: CupertinoColors.white,
+                          shadows: [
+                            BoxShadow(
+                                blurRadius: 10,
+                                offset: Offset(1.0, 1.0),
+                                spreadRadius: 1000)
+                          ]),
+                    ),
                   ),
-                ),
-                Positioned(
-                  top: 160,
-                  right: 10,
-                  child: Text(
-                    
-                    """عن طريق المعلومات التي يضيفها
+                  Positioned(
+                    top: 160,
+                    right: 10,
+                    child: Text(
+                      """عن طريق المعلومات التي يضيفها
                   الحرفي نفسه
                   
                   """,
-                  textAlign: TextAlign.right,
-                    style: TextStyle(fontSize: 15,color: CupertinoColors.white,shadows: [
-                      BoxShadow(
-                        blurRadius: 10,
-                        offset: Offset(1.0, 1.0),
-                        spreadRadius: 1000
-
-                      )
-                    ]),
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: CupertinoColors.white,
+                          shadows: [
+                            BoxShadow(
+                                blurRadius: 10,
+                                offset: Offset(1.0, 1.0),
+                                spreadRadius: 1000)
+                          ]),
+                    ),
                   ),
-                ),
-                                Positioned(
-                  top: 260,
-                  right: 10,
-                  child: Text(
-                    """تم برمجة التطبيق من قبل
+                  Positioned(
+                    top: 260,
+                    right: 10,
+                    child: Text(
+                      """تم برمجة التطبيق من قبل
                     اعضاء مبادرة البرمجة
                     من اجل العراق
                     
                   
                   """,
-                  textAlign: TextAlign.right,
-                    style: TextStyle(fontSize: 15,color: CupertinoColors.white,shadows: [
-                      BoxShadow(
-                        blurRadius: 10,
-                        offset: Offset(1.0, 1.0),
-                        spreadRadius: 1000
-
-                      )
-                    ]),
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: CupertinoColors.white,
+                          shadows: [
+                            BoxShadow(
+                                blurRadius: 10,
+                                offset: Offset(1.0, 1.0),
+                                spreadRadius: 1000)
+                          ]),
+                    ),
                   ),
-                ),
-
-             
-              ],
-            ),
+                ],
+              ),
             ),
           ),
-          Padding(padding: EdgeInsets.all(2),),
+          Padding(
+            padding: EdgeInsets.all(2),
+          ),
           Card(
             elevation: 10,
             child: Container(
               height: MediaQuery.of(context).size.height - 400,
               width: MediaQuery.of(context).size.width - 100,
               child: Stack(
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(
-                              "assets/aa.jpg")
-                              )
-                              ),
-                ),
-                Positioned(
-                  top: 10,
-                  left: 10,
-                  child: Text(
-                    "Code for Iraq",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 40),
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage("assets/aa.jpg"))),
                   ),
-                ),
-              
-              
-                                Positioned(
-                  bottom: 20,
-                  right: 10,
-                  child: Text(
-                    """وهي مبادرة إنسانية غير ربحية
+                  Positioned(
+                    top: 10,
+                    left: 10,
+                    child: Text(
+                      "Code for Iraq",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(fontSize: 40),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 20,
+                    right: 10,
+                    child: Text(
+                      """وهي مبادرة إنسانية غير ربحية
                     تهدف الى خدمة المجتمع عن طريق البرمجة
                      مبادرة تعليمية حقيقية ترعى المهتمين
                      بتعلم تصميم وبرمجة تطبيقات الهاتف الجوال
@@ -260,21 +251,20 @@ class PageOne extends StatelessWidget {
 
                   
                   """,
-                  textAlign: TextAlign.right,
-                    style: TextStyle(fontSize: 12,color: CupertinoColors.white,shadows: [
-                      BoxShadow(
-                        blurRadius: 10,
-                        offset: Offset(1.0, 1.0),
-                        spreadRadius: 1000
-
-                      )
-                    ]),
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: CupertinoColors.white,
+                          shadows: [
+                            BoxShadow(
+                                blurRadius: 10,
+                                offset: Offset(1.0, 1.0),
+                                spreadRadius: 1000)
+                          ]),
+                    ),
                   ),
-                ),
-
-             
-              ],
-            ),
+                ],
+              ),
             ),
           ),
         ],

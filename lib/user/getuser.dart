@@ -123,7 +123,7 @@ class Newscard extends StatelessWidget {
       builder: (BuildContext context, snapshot) {
         if (snapshot.hasData) {
           var cardData = snapshot.data;
-          var key = cardData["key"];
+          var keys = cardData["key"];
           var name = cardData["user name"];
           var Job = cardData["Job"];
           var numPhone = cardData["numPhone"];
@@ -136,7 +136,7 @@ class Newscard extends StatelessWidget {
                    onPressed: (){
                      Navigator.push(context, MaterialPageRoute(
                        builder: (context){
-                         return UpdatePageOne(user_id);
+                         return UpdatePageOne(keys,user_id);
                        }
                      ));
                    },

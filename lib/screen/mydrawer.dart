@@ -1,15 +1,13 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:herfa_test/user/usertoken.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:herfa_test/user/getuser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/gestures.dart';
 
 class MyDrawer extends StatefulWidget {
+  
+
   @override
   _MyDrawerState createState() => _MyDrawerState();
+
 }
 
 class _MyDrawerState extends State<MyDrawer> {
@@ -53,6 +51,10 @@ class _MyDrawerState extends State<MyDrawer> {
             Expanded(
               child: ListView(
                 children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: Text("المطورين",textAlign: TextAlign.right,),
+                  ),
                   ListTile(
                     title: Text(
                       "فهد محفوظ ",
@@ -98,12 +100,13 @@ class _MyDrawerState extends State<MyDrawer> {
                           color: Colors.red)
                     ),
                   ),
+                  
                 ],
               ),
             ),
 
             Padding(
-              padding: EdgeInsets.only(bottom: 100),
+              padding: EdgeInsets.only(bottom: 50),
             ),
 
             Padding(
@@ -131,26 +134,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
               ),
             ),
-            //  Padding(
-            //    padding: EdgeInsets.all(10),
-            //    child: Column(
-            //      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //      children: <Widget>[
-            //        ListTile(
 
-            //          title: Text("فهد محفوظ",textAlign: TextAlign.right,),
-            //          subtitle: Text("مبرمج",textAlign: TextAlign.right,),
-            //        ),
-
-            //         ListTile(
-
-            //          title: Text("فهد محفوظ",textAlign: TextAlign.right,),
-            //          subtitle: Text("مبرمج",textAlign: TextAlign.right,),
-            //        ),
-
-            //      ],
-            //    ),
-            //  ),
           ],
         ),
       ),
