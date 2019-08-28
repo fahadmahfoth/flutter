@@ -40,8 +40,8 @@ class _MyDrawerState extends State<MyDrawer> {
               height: 150,
               width: 150,
               child: ClipOval(
-                child: Image.network(
-                    "https://avatars2.githubusercontent.com/u/39920565?s=460&v=4"),
+                child: Image.asset(
+                    "assets/codeforiraq.png"),
               ),
             ),
             Padding(

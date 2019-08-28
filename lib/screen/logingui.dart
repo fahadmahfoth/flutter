@@ -239,13 +239,13 @@ Scaffold(
       context:context ,
       builder:(BuildContext context){
         return AlertDialog(
-          title: new Text('Failed'),
-          content:  new Text('Check your email or password'),
+          title: new Text('خطأ',textAlign: TextAlign.center,),
+          content:  new Text('تاكد من كتابة المعلومات بشكل صحيح',textAlign: TextAlign.right,),
           actions: <Widget>[
-            new RaisedButton(
+            new OutlineButton(
 
               child: new Text(
-                'Close',
+                'اغلاق',
                  ),
 
               onPressed: (){

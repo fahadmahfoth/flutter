@@ -137,8 +137,10 @@ class PageOne extends StatelessWidget {
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage(
-                              "https://cdn.pixabay.com/photo/2017/12/29/12/46/human-3047529_960_720.jpg"))),
+                          image: AssetImage(
+                              "assets/bb.jpg")
+                              )
+                              ),
                 ),
                 Positioned(
                   top: 10,
@@ -226,8 +228,10 @@ class PageOne extends StatelessWidget {
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage(
-                              "https://cdn.pixabay.com/photo/2019/02/10/16/12/hammer-3987550_960_720.jpg"))),
+                          image: AssetImage(
+                              "assets/aa.jpg")
+                              )
+                              ),
                 ),
                 Positioned(
                   top: 10,
