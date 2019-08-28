@@ -54,6 +54,7 @@ class _tabsHomeState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(5),
       //  decoration: buildBoxDecoration(),
 
       child: FutureBuilder(
@@ -62,15 +63,15 @@ class _tabsHomeState extends State<Profile> {
           if (snapshot.hasData) {
             var mydata = snapshot.data;
             // print(mydata["id"]);
-            return RefreshIndicator(
-              onRefresh: _refresh,
-              child: new Newscard(
+            return 
+              
+               new Newscard(
                 user_id: mydata['key'],
                 name: mydata['name'],
                 email: mydata['email'],
                 created_at: mydata['created_at'],
                 updated_at: mydata['updated_at'],
-              ),
+              
             );
           } else {
             return Center(
@@ -148,70 +149,79 @@ class Newscard extends StatelessWidget {
               elevation: 0.0,
               automaticallyImplyLeading: false,
             ),
-            body: Container(
-              child: ListView(
-                children: <Widget>[
-                  ListTile(
-                    title: Text(
-                      "الاسم",
-                      textAlign: TextAlign.right,
+            body: Card(
+              shape: Border(
+                bottom: BorderSide(color: Colors.black.withOpacity(0.5)),
+                left:  BorderSide(color: Colors.black.withOpacity(0.5)),
+                right:  BorderSide(color: Colors.black.withOpacity(0.5)),
+                top:  BorderSide(color: Colors.black.withOpacity(0.5)),
+              ),
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: ListView(
+                  children: <Widget>[
+                    ListTile(
+                      title: Text(
+                        "الاسم",
+                        textAlign: TextAlign.right,
+                      ),
+                      subtitle: Text(
+                        name,
+                        textAlign: TextAlign.right,
+                        style: TextStyle(fontSize: 25),
+                      ),
                     ),
-                    subtitle: Text(
-                      name,
-                      textAlign: TextAlign.right,
-                      style: TextStyle(fontSize: 25),
-                    ),
-                  ),
-                                    Padding(padding: EdgeInsets.fromLTRB(100, 2, 5, 2),child: Divider(color: Colors.black,),),
+                                      Padding(padding: EdgeInsets.fromLTRB(100, 2, 5, 2),child: Divider(color: Colors.black,),),
 
-                  ListTile(
-                    title: Text(
-                      "الايميل",
-                      textAlign: TextAlign.right,
+                    ListTile(
+                      title: Text(
+                        "الايميل",
+                        textAlign: TextAlign.right,
+                      ),
+                      subtitle: Text(
+                        email,
+                        textAlign: TextAlign.right,
+                        style: TextStyle(fontSize: 25),
+                      ),
                     ),
-                    subtitle: Text(
-                      email,
-                      textAlign: TextAlign.right,
-                      style: TextStyle(fontSize: 25),
+                    ListTile(
+                      title: Text(
+                        "رقم الهاتف",
+                        textAlign: TextAlign.right,
+                      ),
+                      subtitle: Text(
+                        numPhone,
+                        textAlign: TextAlign.right,
+                        style: TextStyle(fontSize: 25),
+                      ),
                     ),
-                  ),
-                  ListTile(
-                    title: Text(
-                      "رقم الهاتف",
-                      textAlign: TextAlign.right,
-                    ),
-                    subtitle: Text(
-                      numPhone,
-                      textAlign: TextAlign.right,
-                      style: TextStyle(fontSize: 25),
-                    ),
-                  ),
-                                    Padding(padding: EdgeInsets.fromLTRB(100, 2, 5, 2),child: Divider(color: Colors.black,),),
+                                      Padding(padding: EdgeInsets.fromLTRB(100, 2, 5, 2),child: Divider(color: Colors.black,),),
 
-                  
-                  ListTile(
-                    title: Text(
-                      "الحرفة",
-                      textAlign: TextAlign.right,
+                    
+                    ListTile(
+                      title: Text(
+                        "الحرفة",
+                        textAlign: TextAlign.right,
+                      ),
+                      subtitle: Text(
+                        Job,
+                        textAlign: TextAlign.right,
+                        style: TextStyle(fontSize: 25),
+                      ),
                     ),
-                    subtitle: Text(
-                      Job,
-                      textAlign: TextAlign.right,
-                      style: TextStyle(fontSize: 25),
+                    ListTile(
+                      title: Text(
+                        "العنوان",
+                        textAlign: TextAlign.right,
+                      ),
+                      subtitle: Text(
+                        location,
+                        textAlign: TextAlign.right,
+                        style: TextStyle(fontSize: 25),
+                      ),
                     ),
-                  ),
-                  ListTile(
-                    title: Text(
-                      "العنوان",
-                      textAlign: TextAlign.right,
-                    ),
-                    subtitle: Text(
-                      location,
-                      textAlign: TextAlign.right,
-                      style: TextStyle(fontSize: 25),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

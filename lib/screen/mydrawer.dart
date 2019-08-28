@@ -118,7 +118,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   highlightColor: Colors.white,
                   highlightedBorderColor: Colors.red,
                   borderSide:
-                      BorderSide(style: BorderStyle.solid, width: 2),
+                      BorderSide(style: BorderStyle.solid, width: 1),
                   focusColor: Colors.red,
                   color: Colors.red,
                   child: Text("تسجيل خروج",
