@@ -79,20 +79,24 @@ class NewServ extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      
       padding: EdgeInsets.all(5),
-      child: OutlineButton(
-        highlightedBorderColor: Colors.transparent,
-        borderSide: BorderSide(width: 1, color: Colors.black.withOpacity(0.4)),
-        child: Text(
-          "$job_name",
-          style: TextStyle(color: Colors.black.withOpacity(0.7), fontSize: 25),
+      child: Container(
+        color: CupertinoColors.extraLightBackgroundGray,
+        child: OutlineButton(
+          highlightedBorderColor: Colors.red,
+          borderSide: BorderSide(width: 1, color: Colors.black.withOpacity(0.4)),
+          child: Text(
+            "$job_name",
+            style: TextStyle(color: Colors.black.withOpacity(0.7), fontSize: 25),
+          ),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              // print(job_name);
+              return Cards(job_name: job_name);
+            }));
+          },
         ),
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            // print(job_name);
-            return Cards(job_name: job_name);
-          }));
-        },
       ),
 
       // color: Colors.red[200],

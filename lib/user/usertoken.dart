@@ -16,12 +16,20 @@ class SignUp {
     status = response.body.contains('error');
 
     var data = json.decode(response.body);
+    try{
+
      _save(data["data"]["token"]);
     if (status) {
       print('data : ${data["error"]}');
     } else {
       print('data : ${data["data"]["token"]}');
       _save(data["data"]["token"]);
+    }
+
+    }catch(e){
+      print(e);
+status = false ;
+
     }
   }
 
@@ -35,8 +43,13 @@ class SignUp {
     status = response.body.contains('error');
 
     var data = json.decode(response.body);
-    print('data : ${data["data"]["token"]}');
-    _save(data["data"]["token"]);
+try{
+      _save(data["data"]["token"]);
+}catch(e){
+  print(e);
+  status= false ;
+}
+    
     // if (status) {
     //   print('data : ${data["error"]}');
     // } else {
@@ -63,9 +76,9 @@ class SignUp {
    Future getServ() async {
     try {
       final response =
-          await http.get("http://herfa.codeforiraq.org/api/services/");
+          await http.get("http://herfa.codeforiraq.org/public/api/services/");
 
-      var result = jsonDecode(response.body)["data"]["data"];
+      var result = jsonDecode(response.body)["data"];
       //  print(result);
     
       

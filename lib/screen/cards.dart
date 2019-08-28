@@ -166,11 +166,11 @@ class Newscard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      padding: EdgeInsets.all(2.0),
+      padding: EdgeInsets.all(10),
       child: Card(
         // color: Colors.white.withOpacity(0.75),
-        child: GestureDetector(
-          onTap: () {},
+        child: OutlineButton(
+          onPressed: (){},
           child: new Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:herfa_test/screen/cards.dart';
 import 'package:herfa_test/user/usertoken.dart';
 import 'package:http/http.dart' as http;
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cards.dart';
@@ -46,66 +47,84 @@ class _ServesState extends State<AddPageOne> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     gser.getServ();
   }
 
+
+
+    RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
+
+    setState(() {
+      gser.getServ();
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: gser.getServ(),
       builder: (BuildContext context, snapshot) {
         if (snapshot.hasData) {
-          return Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.transparent,
-                elevation: 0.0,
-                title: Text(
-                  "اختر حرفتك ",
+          return SmartRefresher(
+            controller: _refreshController,
+            onRefresh: _onRefresh,
+
+            child: Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0.0,
+                  title: Text(
+                    "اختر حرفتك ",
+                  ),
+                  centerTitle: true,
                 ),
-                centerTitle: true,
-              ),
-              floatingActionButton: FloatingActionButton.extended(
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, "addser");
-                },
-                label: Text("اضافة حرفة"),
-                backgroundColor: CupertinoColors.destructiveRed,
-                icon: Icon(Icons.add),
-              ),
-              body: Center(
-                child: new Container(
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width - 10,
-                    child: Column(
-                      children: <Widget>[
-                        Divider(
-                          color: CupertinoColors.darkBackgroundGray,
-                        ),
-                        Expanded(
-                          
-                           child: GridView.builder(
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (BuildContext context, int i) {
-// Text(snapshot.data[i]["name"].toString()),
-                              var mydata = snapshot.data[i];
-                            //  print(mydata["key"]);
-                              return Container(
-                                child: NewServ(
-                                    user_id: user_id,
-                                    ser_id: mydata["key"],
-                                    name: mydata["name"]),
-                              );
-                            },
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3),
+                floatingActionButton: FloatingActionButton.extended(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, "addser");
+                  },
+                  label: Text("اضافة حرفة"),
+                  backgroundColor: CupertinoColors.destructiveRed,
+                  icon: Icon(Icons.add),
+                ),
+                body: Center(
+                  child: new Container(
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width - 10,
+                      child: Column(
+                        children: <Widget>[
+                          Divider(
+                            color: CupertinoColors.darkBackgroundGray,
                           ),
-                        ),
-                      ],
-                    )),
-              ));
+                          Expanded(
+                            
+                             child: GridView.builder(
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (BuildContext context, int i) {
+// Text(snapshot.data[i]["name"].toString()),
+                                var mydata = snapshot.data[i];
+                              //  print(mydata["key"]);
+                                return Container(
+                                  child: NewServ(
+                                      user_id: user_id,
+                                      ser_id: mydata["key"],
+                                      name: mydata["name"]),
+                                );
+                              },
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3),
+                            ),
+                          ),
+                        ],
+                      )),
+                )),
+          );
         } else {
           return Container(color: Colors.white,child: Center(child: CircularProgressIndicator()));
         }

@@ -88,8 +88,8 @@ class _AddServState extends State<AddServ> {
                     borderRadius: new BorderRadius.circular(20.0)),
                 onPressed: (){
                   print(_controller.text);
-                  // addData(_controller.text);
-                  // Navigator.pop(context);
+                  addData(_controller.text);
+                  Navigator.pushNamed(context,"addcard");
                 },
               ),
             ),

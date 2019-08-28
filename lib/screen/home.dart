@@ -16,7 +16,18 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+
 class _HomeState extends State<Home> {
+    readIntro() async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'intro';
+    final value = prefs.get(key) ?? 0;
+    print('read : $value');
+    if(value=="0"){
+      return true ;
+ 
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -37,7 +48,7 @@ class _HomeState extends State<Home> {
         "login": (context) => LoginPage(),
         "profile": (context) => Profile(),
         "cards": (context) => Cards(),
-        "intro": (context) => IntroScreen(),
+        "intro": (context) => readIntro()=="0"?IntroScreen():InterFace(),
         "addser":(context) => AddServ(),
          "addcard":(context) => AddPageZero(),
       },
@@ -120,6 +131,7 @@ class PageOne extends StatelessWidget {
               height: MediaQuery.of(context).size.height - 400,
               width: MediaQuery.of(context).size.width - 100,
               child: Stack(
+                fit: StackFit.expand,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -145,7 +157,7 @@ class PageOne extends StatelessWidget {
                   
                   """,
                   textAlign: TextAlign.right,
-                    style: TextStyle(fontSize: 20,color: CupertinoColors.white,shadows: [
+                    style: TextStyle(fontSize: 15,color: CupertinoColors.white,shadows: [
                       BoxShadow(
                         blurRadius: 10,
                         offset: Offset(1.0, 1.0),
@@ -165,7 +177,7 @@ class PageOne extends StatelessWidget {
                   
                   """,
                   textAlign: TextAlign.right,
-                    style: TextStyle(fontSize: 20,color: CupertinoColors.white,shadows: [
+                    style: TextStyle(fontSize: 15,color: CupertinoColors.white,shadows: [
                       BoxShadow(
                         blurRadius: 10,
                         offset: Offset(1.0, 1.0),
@@ -186,7 +198,7 @@ class PageOne extends StatelessWidget {
                   
                   """,
                   textAlign: TextAlign.right,
-                    style: TextStyle(fontSize: 20,color: CupertinoColors.white,shadows: [
+                    style: TextStyle(fontSize: 15,color: CupertinoColors.white,shadows: [
                       BoxShadow(
                         blurRadius: 10,
                         offset: Offset(1.0, 1.0),
@@ -229,7 +241,7 @@ class PageOne extends StatelessWidget {
               
               
                                 Positioned(
-                  top: 70,
+                  bottom: 20,
                   right: 10,
                   child: Text(
                     """وهي مبادرة إنسانية غير ربحية
@@ -245,7 +257,7 @@ class PageOne extends StatelessWidget {
                   
                   """,
                   textAlign: TextAlign.right,
-                    style: TextStyle(fontSize: 15,color: CupertinoColors.white,shadows: [
+                    style: TextStyle(fontSize: 12,color: CupertinoColors.white,shadows: [
                       BoxShadow(
                         blurRadius: 10,
                         offset: Offset(1.0, 1.0),

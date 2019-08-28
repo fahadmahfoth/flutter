@@ -142,7 +142,7 @@ class Newscard extends StatelessWidget {
                    },
                 )
               ],
-              title: Text('البطاقة التعريفية',),
+              title: Text('البطاقة التعريفية',style:TextStyle(color: Colors.black)),
               centerTitle: true,
               backgroundColor: Colors.transparent,
               elevation: 0.0,

@@ -13,15 +13,12 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
-
-        _saveadd(String useradd) async {
+  _saveadd(String useradd) async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'addcard';
     final value = useradd;
     prefs.setString(key, value);
   }
-
-
 
   SignUp userdata = SignUp();
   _save(String token) async {
@@ -34,43 +31,98 @@ class _MyDrawerState extends State<MyDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      
-        child: Padding(
-          padding: const EdgeInsets.only(top: 40),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Container(
-               height: 150,
-               width: 150,
-               child: ClipOval(
-                 child: Image.network("https://avatars2.githubusercontent.com/u/39920565?s=460&v=4"),
-               ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 40),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              height: 150,
+              width: 150,
+              child: ClipOval(
+                child: Image.network(
+                    "https://avatars2.githubusercontent.com/u/39920565?s=460&v=4"),
               ),
-              Padding(padding: EdgeInsets.only(bottom: 80),),
-              Container(
-                height: MediaQuery.of(context).size.height / 16,
-                width: MediaQuery.of(context).size.width / 2,
-                child: OutlineButton(
-                  onPressed: (){
-                    // userdata.getusercard();
-
-                  },
-                  child: Text("تواصل معنا",style:TextStyle(fontSize: 20)),
-                ),
-              ),
-                 Padding(
+            ),
+            Padding(
               padding: EdgeInsets.all(10),
+              child: Divider(
+                color: Colors.black,
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                children: <Widget>[
+                  ListTile(
+                    title: Text(
+                      "فهد محفوظ ",
+                      textAlign: TextAlign.right,
+                    ),
+                    subtitle: Text(
+                      "مُبرمج",
+                      textAlign: TextAlign.right,
+                         style: TextStyle(
+                          color: Colors.red)
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "ربيع",
+                      textAlign: TextAlign.right,
+
+                    ),
+                    subtitle: Text(
+                      "مُبرمج",
+                      textAlign: TextAlign.right,
+
+                      style: TextStyle(
+                          color: Colors.red)
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Divider(),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Code for Iraq",
+                      textAlign: TextAlign.center,
+                      
+                    ),
+                    subtitle: Text(
+                      "info@codeforiraq@org",
+                      textAlign: TextAlign.center,
+
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width / 23,
+                          color: Colors.red)
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            Padding(
+              padding: EdgeInsets.only(bottom: 100),
+            ),
+
+            Padding(
+              padding: EdgeInsets.all(20),
               child: Container(
-                height: MediaQuery.of(context).size.height / 16,
-                width: MediaQuery.of(context).size.width / 2,
+                height: MediaQuery.of(context).size.height / 18,
+                width: MediaQuery.of(context).size.width / 2.5,
                 child: OutlineButton(
+                  highlightColor: Colors.white,
+                  highlightedBorderColor: Colors.red,
                   borderSide:
-                      BorderSide(color: Colors.red.withOpacity(0.5), width: 2),
+                      BorderSide(style: BorderStyle.solid, width: 2),
                   focusColor: Colors.red,
                   color: Colors.red,
                   child: Text("تسجيل خروج",
-                      style: TextStyle(fontSize: 25, color: Colors.red)),
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width / 20,
+                          color: Colors.red)
+                          ),
                   onPressed: () {
                     _save(null);
                     _saveadd(null);
@@ -79,7 +131,6 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
               ),
             ),
-            Padding(padding: EdgeInsets.all(10),child: Divider(color: Colors.black,),),
             //  Padding(
             //    padding: EdgeInsets.all(10),
             //    child: Column(
@@ -87,29 +138,22 @@ class _MyDrawerState extends State<MyDrawer> {
             //      children: <Widget>[
             //        ListTile(
 
-                     
             //          title: Text("فهد محفوظ",textAlign: TextAlign.right,),
             //          subtitle: Text("مبرمج",textAlign: TextAlign.right,),
             //        ),
 
             //         ListTile(
 
-                     
             //          title: Text("فهد محفوظ",textAlign: TextAlign.right,),
             //          subtitle: Text("مبرمج",textAlign: TextAlign.right,),
             //        ),
-                   
+
             //      ],
             //    ),
             //  ),
-
-            ],
-          ),
+          ],
         ),
-      
+      ),
     );
-
-
-    
   }
 }
