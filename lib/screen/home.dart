@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'cards.dart';
 import 'logingui.dart';
 import 'package:herfa_test/user/usertoken.dart';
-
+import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -78,37 +78,62 @@ class _InterFaceState extends State<InterFace> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          centerTitle: true,
-          title: Text("حرفة"),
+           centerTitle: true,
+          
+          title: Text("حرفة",textAlign: TextAlign.right,),
           backgroundColor: Colors.transparent,
           elevation: 0.0,
         ),
-        endDrawer: MyDrawer(),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.pink,
-          currentIndex: _selectedPage,
-          onTap: (int index) {
+        // endDrawer: MyDrawer(),
+        bottomNavigationBar: FancyBottomNavigation(
+
+          // showUnselectedLabels: false,
+          // elevation: 5,
+// buttonBackgroundColor: CupertinoColors.extraLightBackgroundGray,
+
+
+        // backgroundColor: CupertinoColors.destructiveRed,
+          // backgroundColor: Colors.pink,
+          // currentIndex: _selectedPage,
+          // index: _selectedPage,
+          onTabChangedListener: (int index) {
             setState(() {
               _selectedPage = index;
             });
           },
-          type: BottomNavigationBarType.shifting,
-          selectedItemColor: CupertinoColors.destructiveRed,
-          unselectedItemColor:
-              CupertinoColors.darkBackgroundGray.withOpacity(0.7),
-          items: [
-            BottomNavigationBarItem(
-                title: Text("الحرف"),
-                icon: SizedBox(
-                    height: 40, child: Image.asset("assets/group.png"))),
-            BottomNavigationBarItem(
-                title: Text("الملف الشخصي"),
-                icon: Icon(CupertinoIcons.person),
-                activeIcon: Icon(Icons.person)),
-            BottomNavigationBarItem(
-                title: Text("حول"),
-                icon: Icon(CupertinoIcons.info),
-                activeIcon: Icon(Icons.info)),
+          inactiveIconColor: CupertinoColors.darkBackgroundGray,
+          activeIconColor: CupertinoColors.destructiveRed,
+          circleColor: CupertinoColors.white,
+          initialSelection: _selectedPage,
+          // type: BottomNavigationBarType.fixed,
+          // selectedItemColor: CupertinoColors.destructiveRed,
+          // unselectedItemColor:
+          //     CupertinoColors.darkBackgroundGray.withOpacity(0.7),
+              
+          tabs: [
+
+        TabData(iconData: Icons.home, title: "الرئيسية"),
+        TabData(iconData: Icons.person, title: "الملف الشخصي"),
+        TabData(iconData: Icons.info, title: "حول")
+// SizedBox(
+//                     height: 40, child: Image.asset("assets/group.png")
+//                     ),
+                     
+//                         Icon(Icons.person, size: 30),
+//       Icon(Icons.compare_arrows, size: 30),
+            // BottomNavigationBarItem(
+
+            //     title: Text("الحرف"),
+            //     icon: SizedBox(
+            //         height: 40, child: Image.asset("assets/group.png"))),
+            // BottomNavigationBarItem(
+            //     title: Text("الملف الشخصي"),
+            //     icon: Icon(CupertinoIcons.person),
+            //     activeIcon: Icon(Icons.person)),
+            // BottomNavigationBarItem(
+            //     title: Text("حول"),
+            //     icon: Icon(CupertinoIcons.info),
+            //     activeIcon: Icon(Icons.info)),
           ],
         ),
         body: _pageOptions[_selectedPage]);
@@ -236,7 +261,7 @@ class PageOne extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    bottom: 20,
+                    top: 100,
                     right: 10,
                     child: Text(
                       """وهي مبادرة إنسانية غير ربحية
@@ -265,6 +290,101 @@ class PageOne extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+          ),
+
+            Card(
+              color: Colors.white,
+            elevation: 10,
+            child: Container(
+              height: MediaQuery.of(context).size.height - 400,
+              width: MediaQuery.of(context).size.width - 100,
+              child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              color: Colors.white,
+              height: 150,
+              width: 150,
+              child: ClipOval(
+                child: Image.asset(
+                    "assets/codeforiraq.png"),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Divider(
+                color: Colors.black,
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: Text("المطورين",textAlign: TextAlign.right,
+                    style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "فهد محفوظ ",
+                      textAlign: TextAlign.right,
+                    ),
+                    subtitle: Text(
+                      "مُبرمج",
+                      textAlign: TextAlign.right,
+                         style: TextStyle(
+                          color: Colors.red)
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "ربيع علي",
+                      textAlign: TextAlign.right,
+
+                    ),
+                    subtitle: Text(
+                      "مُبرمج",
+                      textAlign: TextAlign.right,
+
+                      style: TextStyle(
+                          color: Colors.red)
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Divider(),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Code for Iraq",
+                      textAlign: TextAlign.center,
+                      
+                    ),
+                    subtitle: Text(
+                      "info@codeforiraq@org",
+                      textAlign: TextAlign.center,
+
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width / 23,
+                          color: Colors.red)
+                    ),
+                  ),
+                  
+                ],
+              ),
+            ),
+
+            Padding(
+              padding: EdgeInsets.only(bottom: 50),
+            ),
+
+
+          ],
+        ),
+
+
             ),
           ),
         ],

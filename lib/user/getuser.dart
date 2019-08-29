@@ -184,6 +184,8 @@ class Newscard extends StatelessWidget {
                         style: TextStyle(fontSize: 25),
                       ),
                     ),
+                                                          Padding(padding: EdgeInsets.fromLTRB(100, 2, 5, 2),child: Divider(color: Colors.black,),),
+
                     ListTile(
                       title: Text(
                         "رقم الهاتف",
@@ -209,6 +211,8 @@ class Newscard extends StatelessWidget {
                         style: TextStyle(fontSize: 25),
                       ),
                     ),
+                                                          Padding(padding: EdgeInsets.fromLTRB(100, 2, 5, 2),child: Divider(color: Colors.black,),),
+
                     ListTile(
                       title: Text(
                         "العنوان",
@@ -220,6 +224,33 @@ class Newscard extends StatelessWidget {
                         style: TextStyle(fontSize: 25),
                       ),
                     ),
+                                                          Padding(padding: EdgeInsets.fromLTRB(100, 2, 5, 10),child: Divider(color: Colors.black,),),
+
+
+              Padding(
+                padding: EdgeInsets.only(bottom:25),
+                child: Container(
+                  height: MediaQuery.of(context).size.height / 18,
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  child: OutlineButton(
+                    highlightColor: Colors.white,
+                    highlightedBorderColor: Colors.red,
+                    borderSide:
+                        BorderSide(style: BorderStyle.solid, width: 1),
+                    focusColor: Colors.red,
+                    color: Colors.red,
+                    child: Text("تسجيل خروج",
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width / 20,
+                            color: Colors.red)
+                            ),
+                    onPressed: () {
+                      _save(null);
+                      Navigator.pushReplacementNamed(context, "interface");
+                    },
+                  ),
+                ),
+              ),
                   ],
                 ),
               ),
