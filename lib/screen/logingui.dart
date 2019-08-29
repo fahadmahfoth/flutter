@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:herfa_test/screen/signupgui.dart';
@@ -12,32 +10,27 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
-
   read() async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'token';
-    final value = prefs.get(key ) ?? null;
-    if(value != null){
+    final value = prefs.get(key) ?? null;
+    if (value != null) {
       Navigator.of(context).pushReplacementNamed("interface");
     }
   }
 
-      readtwo() async {
+  readtwo() async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'token';
-    final value = prefs.get(key ) ?? null;
+    final value = prefs.get(key) ?? null;
     print(value);
     return value;
-
   }
 
-@override
-initState(){
-  read();
-}
-
-
+  @override
+  initState() {
+    read();
+  }
 
   SignUp databaseHelper = new SignUp();
   String msgStatus = '';
@@ -45,24 +38,22 @@ initState(){
   final TextEditingController _emailController = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
 
-
-  _onPressed(){
+  _onPressed() {
     setState(() {
-      if(_emailController.text.trim().toLowerCase().isNotEmpty &&
-          _passwordController.text.trim().isNotEmpty ){
-        databaseHelper.loginData(_emailController.text.trim().toLowerCase(),
-            _passwordController.text.trim()).whenComplete((){
-              if(databaseHelper.status==false){
-                readtwo();
-                _showDialog();
-                msgStatus = 'Check email or password'; 
-              }else{
-                 Navigator.pushReplacementNamed(context, 'interface');
-                 databaseHelper.status=true;
-
-
-              }
-
+      if (_emailController.text.trim().toLowerCase().isNotEmpty &&
+          _passwordController.text.trim().isNotEmpty) {
+        databaseHelper
+            .loginData(_emailController.text.trim().toLowerCase(),
+                _passwordController.text.trim())
+            .whenComplete(() {
+          if (databaseHelper.status == false) {
+            readtwo();
+            _showDialog();
+            msgStatus = 'Check email or password';
+          } else {
+            Navigator.pushReplacementNamed(context, 'interface');
+            databaseHelper.status = true;
+          }
         });
       }
     });
@@ -70,17 +61,12 @@ initState(){
 
   @override
   Widget build(BuildContext context) {
-    return 
-         
-Scaffold(
+    return Scaffold(
       body: Container(
-         decoration: new BoxDecoration(
-                    color: CupertinoColors.lightBackgroundGray,
-
-
-                  ),
-                          padding: EdgeInsets.only(top: 40),
-
+        decoration: new BoxDecoration(
+          color: CupertinoColors.lightBackgroundGray,
+        ),
+        padding: EdgeInsets.only(top: 40),
         child: ListView(
           children: <Widget>[
             Stack(
@@ -88,8 +74,7 @@ Scaffold(
                 ///////////  background///////////
                 new Container(
                   decoration: new BoxDecoration(
-                    color: CupertinoColors.lightBackgroundGray
-                  ),
+                      color: CupertinoColors.lightBackgroundGray),
                 ),
 
                 Positioned(
@@ -155,8 +140,12 @@ Scaffold(
                                   child: RaisedButton(
                                     child: Padding(
                                       padding: EdgeInsets.only(
-                                          top: 8, bottom: 8, left: 10, right: 10),
-                                      child: Text("تسجيل الدخول",
+                                          top: 8,
+                                          bottom: 8,
+                                          left: 10,
+                                          right: 10),
+                                      child: Text(
+                                        "تسجيل الدخول",
                                         textDirection: TextDirection.ltr,
                                         style: TextStyle(
                                           color: Colors.white,
@@ -172,7 +161,6 @@ Scaffold(
                                         borderRadius:
                                             new BorderRadius.circular(20.0)),
                                     onPressed: _onPressed,
-                                   
                                   ),
                                 ),
                               ],
@@ -203,11 +191,11 @@ Scaffold(
                           ),
                         ),
 
-                                            Padding(
+                        Padding(
                           padding: const EdgeInsets.only(top: 20),
                           child: InkWell(
                             onTap: () {
-                              Navigator.popAndPushNamed(context,"interface");
+                              Navigator.popAndPushNamed(context, "interface");
                             },
                             child: Text(
                               'الغاء العملية',
@@ -233,30 +221,30 @@ Scaffold(
     );
   }
 
-
-    void _showDialog(){
+  void _showDialog() {
     showDialog(
-      context:context ,
-      builder:(BuildContext context){
-        return AlertDialog(
-          title: new Text('خطأ',textAlign: TextAlign.center,),
-          content:  new Text('تاكد من كتابة المعلومات بشكل صحيح',textAlign: TextAlign.right,),
-          actions: <Widget>[
-            new OutlineButton(
-
-              child: new Text(
-                'اغلاق',
-                 ),
-
-              onPressed: (){
-                Navigator.of(context).pop();
-              },
-
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text(
+              'خطأ',
+              textAlign: TextAlign.center,
             ),
-          ],
-        );
-      }
-    );
+            content: new Text(
+              'تاكد من كتابة المعلومات بشكل صحيح',
+              textAlign: TextAlign.right,
+            ),
+            actions: <Widget>[
+              new OutlineButton(
+                child: new Text(
+                  'اغلاق',
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
-
 }

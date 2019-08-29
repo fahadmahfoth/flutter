@@ -63,15 +63,12 @@ class _tabsHomeState extends State<Profile> {
           if (snapshot.hasData) {
             var mydata = snapshot.data;
             // print(mydata["id"]);
-            return 
-              
-               new Newscard(
-                user_id: mydata['key'],
-                name: mydata['name'],
-                email: mydata['email'],
-                created_at: mydata['created_at'],
-                updated_at: mydata['updated_at'],
-              
+            return new Newscard(
+              user_id: mydata['key'],
+              name: mydata['name'],
+              email: mydata['email'],
+              created_at: mydata['created_at'],
+              updated_at: mydata['updated_at'],
             );
           } else {
             return Center(
@@ -117,8 +114,6 @@ class Newscard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return FutureBuilder(
       future: getcard.getusercard(user_id),
       builder: (BuildContext context, snapshot) {
@@ -133,17 +128,17 @@ class Newscard extends StatelessWidget {
             appBar: AppBar(
               actions: <Widget>[
                 IconButton(
-                  icon:Icon(CupertinoIcons.pen),
-                   onPressed: (){
-                     Navigator.push(context, MaterialPageRoute(
-                       builder: (context){
-                         return UpdatePageOne(keys,user_id);
-                       }
-                     ));
-                   },
+                  icon: Icon(CupertinoIcons.pen),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return UpdatePageOne(keys, user_id);
+                    }));
+                  },
                 )
               ],
-              title: Text('البطاقة التعريفية',style:TextStyle(color: Colors.black)),
+              title: Text('البطاقة التعريفية',
+                  style: TextStyle(color: Colors.black)),
               centerTitle: true,
               backgroundColor: Colors.transparent,
               elevation: 0.0,
@@ -152,9 +147,9 @@ class Newscard extends StatelessWidget {
             body: Card(
               shape: Border(
                 bottom: BorderSide(color: Colors.black.withOpacity(0.5)),
-                left:  BorderSide(color: Colors.black.withOpacity(0.5)),
-                right:  BorderSide(color: Colors.black.withOpacity(0.5)),
-                top:  BorderSide(color: Colors.black.withOpacity(0.5)),
+                left: BorderSide(color: Colors.black.withOpacity(0.5)),
+                right: BorderSide(color: Colors.black.withOpacity(0.5)),
+                top: BorderSide(color: Colors.black.withOpacity(0.5)),
               ),
               child: Container(
                 padding: EdgeInsets.all(10),
@@ -171,8 +166,12 @@ class Newscard extends StatelessWidget {
                         style: TextStyle(fontSize: 25),
                       ),
                     ),
-                                      Padding(padding: EdgeInsets.fromLTRB(100, 2, 5, 2),child: Divider(color: Colors.black,),),
-
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(100, 2, 5, 2),
+                      child: Divider(
+                        color: Colors.black,
+                      ),
+                    ),
                     ListTile(
                       title: Text(
                         "الايميل",
@@ -184,8 +183,12 @@ class Newscard extends StatelessWidget {
                         style: TextStyle(fontSize: 25),
                       ),
                     ),
-                                                          Padding(padding: EdgeInsets.fromLTRB(100, 2, 5, 2),child: Divider(color: Colors.black,),),
-
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(100, 2, 5, 2),
+                      child: Divider(
+                        color: Colors.black,
+                      ),
+                    ),
                     ListTile(
                       title: Text(
                         "رقم الهاتف",
@@ -197,9 +200,12 @@ class Newscard extends StatelessWidget {
                         style: TextStyle(fontSize: 25),
                       ),
                     ),
-                                      Padding(padding: EdgeInsets.fromLTRB(100, 2, 5, 2),child: Divider(color: Colors.black,),),
-
-                    
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(100, 2, 5, 2),
+                      child: Divider(
+                        color: Colors.black,
+                      ),
+                    ),
                     ListTile(
                       title: Text(
                         "الحرفة",
@@ -211,8 +217,12 @@ class Newscard extends StatelessWidget {
                         style: TextStyle(fontSize: 25),
                       ),
                     ),
-                                                          Padding(padding: EdgeInsets.fromLTRB(100, 2, 5, 2),child: Divider(color: Colors.black,),),
-
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(100, 2, 5, 2),
+                      child: Divider(
+                        color: Colors.black,
+                      ),
+                    ),
                     ListTile(
                       title: Text(
                         "العنوان",
@@ -224,33 +234,37 @@ class Newscard extends StatelessWidget {
                         style: TextStyle(fontSize: 25),
                       ),
                     ),
-                                                          Padding(padding: EdgeInsets.fromLTRB(100, 2, 5, 10),child: Divider(color: Colors.black,),),
-
-
-              Padding(
-                padding: EdgeInsets.only(bottom:25),
-                child: Container(
-                  height: MediaQuery.of(context).size.height / 18,
-                  width: MediaQuery.of(context).size.width / 2.5,
-                  child: OutlineButton(
-                    highlightColor: Colors.white,
-                    highlightedBorderColor: Colors.red,
-                    borderSide:
-                        BorderSide(style: BorderStyle.solid, width: 1),
-                    focusColor: Colors.red,
-                    color: Colors.red,
-                    child: Text("تسجيل خروج",
-                        style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width / 20,
-                            color: Colors.red)
-                            ),
-                    onPressed: () {
-                      _save(null);
-                      Navigator.pushReplacementNamed(context, "interface");
-                    },
-                  ),
-                ),
-              ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(100, 2, 5, 10),
+                      child: Divider(
+                        color: Colors.black,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 25),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height / 18,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        child: OutlineButton(
+                          highlightColor: Colors.white,
+                          highlightedBorderColor: Colors.red,
+                          borderSide:
+                              BorderSide(style: BorderStyle.solid, width: 1),
+                          focusColor: Colors.red,
+                          color: Colors.red,
+                          child: Text("تسجيل خروج",
+                              style: TextStyle(
+                                  fontSize:
+                                      MediaQuery.of(context).size.width / 20,
+                                  color: Colors.red)),
+                          onPressed: () {
+                            _save(null);
+                            Navigator.pushReplacementNamed(
+                                context, "interface");
+                          },
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

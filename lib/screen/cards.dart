@@ -20,13 +20,13 @@ class Cards extends StatefulWidget {
 class _tabsHomeState extends State<Cards> {
   _tabsHomeState(this.job_name);
 
-String job_name;
-SignUp gcard = SignUp();
+  String job_name;
+  SignUp gcard = SignUp();
 
   @override
   void initState() {
     super.initState();
- gcard.getCard(job_name);
+    gcard.getCard(job_name);
   }
 
   RefreshController _refreshController =
@@ -53,74 +53,64 @@ SignUp gcard = SignUp();
             if (snapshot.hasData) {
               mydata = snapshot.data;
               return new Scaffold(
-
-                floatingActionButton: FloatingActionButton(
-                  
-                  onPressed: (){
-                    Navigator.pop(context);
-
-                  },
-                  highlightElevation: 0.0,
-                  isExtended: true,
-                  foregroundColor: CupertinoColors.darkBackgroundGray,
-                  backgroundColor: Colors.transparent,
-                  elevation: 0.0,
-                  child: Row(
-                    children: <Widget>[
-                    Text("رجوع"),
-                      Icon(CupertinoIcons.forward),
-                    ],
+                  floatingActionButton: FloatingActionButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    highlightElevation: 0.0,
+                    isExtended: true,
+                    foregroundColor: CupertinoColors.darkBackgroundGray,
+                    backgroundColor: Colors.transparent,
+                    elevation: 0.0,
+                    child: Row(
+                      children: <Widget>[
+                        Text("رجوع"),
+                        Icon(CupertinoIcons.forward),
+                      ],
+                    ),
                   ),
-                ),
-
-              body:
-              
-              
-              
-              Container(
-                  padding: const EdgeInsets.only(top: 25.0),
-                  alignment: Alignment.center,
-                  child: new Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "$job_name",
-                        style: TextStyle(fontSize: 50),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 20, right: 20),
-                        child: Divider(
-                          color: Colors.black,
-                        ),
-                      ),
-                      new Expanded(
-                          child: SmartRefresher(
-                              header: WaterDropHeader(
-                                complete: Text("تمت العملية"),
-                                completeDuration: Duration(seconds: 1),
-                                idleIcon: Icon(Icons.sync),
-                                failed: Icon(Icons.cancel),
-                              ),
-                              enableTwoLevel: true,
-                              controller: _refreshController,
-                              onRefresh: _onRefresh,
-                              child: new ListView.builder(
-                                  itemCount: mydata.length,
-                                  itemBuilder: (context, int i) {
-                                    return new Newscard(
-                                      id: mydata[i]['key'],
-                                      user_name: mydata[i]['user name'],
-                                      job: mydata[i]['Job'],
-                                      numPhone: mydata[i]['numPhone'],
-                                      location: mydata[i]['location'],
-                                    );
-                                  }))),
-                    ],
-                  )));
+                  body: Container(
+                      padding: const EdgeInsets.only(top: 25.0),
+                      alignment: Alignment.center,
+                      child: new Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "$job_name",
+                            style: TextStyle(fontSize: 50),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            child: Divider(
+                              color: Colors.black,
+                            ),
+                          ),
+                          new Expanded(
+                              child: SmartRefresher(
+                                  header: WaterDropHeader(
+                                    complete: Text("تمت العملية"),
+                                    completeDuration: Duration(seconds: 1),
+                                    idleIcon: Icon(Icons.sync),
+                                    failed: Icon(Icons.cancel),
+                                  ),
+                                  enableTwoLevel: true,
+                                  controller: _refreshController,
+                                  onRefresh: _onRefresh,
+                                  child: new ListView.builder(
+                                      itemCount: mydata.length,
+                                      itemBuilder: (context, int i) {
+                                        return new Newscard(
+                                          id: mydata[i]['key'],
+                                          user_name: mydata[i]['user name'],
+                                          job: mydata[i]['Job'],
+                                          numPhone: mydata[i]['numPhone'],
+                                          location: mydata[i]['location'],
+                                        );
+                                      }))),
+                        ],
+                      )));
             } else {
-              return
-              
-              Column(
+              return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Center(
@@ -170,7 +160,7 @@ class Newscard extends StatelessWidget {
       child: Card(
         // color: Colors.white.withOpacity(0.75),
         child: OutlineButton(
-          onPressed: (){},
+          onPressed: () {},
           child: new Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -200,7 +190,6 @@ class Newscard extends StatelessWidget {
               new ListTile(
                 title: new Text(
                   "رقم هاتف :  $numPhone",
-
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     fontSize: 18.0,
@@ -211,7 +200,6 @@ class Newscard extends StatelessWidget {
                   textAlign: TextAlign.right,
                   style: TextStyle(fontSize: 20),
                 ),
-
               )
             ],
           ),

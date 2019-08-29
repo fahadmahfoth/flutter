@@ -35,7 +35,7 @@ class _ServesState extends State<Serves> {
               body: Center(
                 child: new Container(
                     alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width -20,
+                    width: MediaQuery.of(context).size.width - 20,
                     child: Column(
                       children: <Widget>[
                         Text(
@@ -79,16 +79,17 @@ class NewServ extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      
       padding: EdgeInsets.all(5),
       child: Container(
         color: CupertinoColors.extraLightBackgroundGray,
         child: OutlineButton(
           highlightedBorderColor: Colors.red,
-          borderSide: BorderSide(width: 1, color: Colors.black.withOpacity(0.4)),
+          borderSide:
+              BorderSide(width: 1, color: Colors.black.withOpacity(0.4)),
           child: Text(
             "$job_name",
-            style: TextStyle(color: Colors.black.withOpacity(0.7), fontSize: 25),
+            style:
+                TextStyle(color: Colors.black.withOpacity(0.7), fontSize: 25),
           ),
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -98,8 +99,6 @@ class NewServ extends StatelessWidget {
           },
         ),
       ),
-
-      // color: Colors.red[200],
     );
   }
 }

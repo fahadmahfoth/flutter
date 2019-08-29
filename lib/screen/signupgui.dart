@@ -9,80 +9,72 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-
-
   read() async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'token';
-    final value = prefs.get(key ) ?? null;
-    if(value != null){
+    final value = prefs.get(key) ?? null;
+    if (value != null) {
       Navigator.of(context).pushReplacementNamed("interface");
     }
   }
 
-    readtwo() async {
+  readtwo() async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'token';
-    final value = prefs.get(key ) ?? null;
+    final value = prefs.get(key) ?? null;
     return value;
-
   }
 
-@override
-initState(){
-  read();
-}
-
-
+  @override
+  initState() {
+    read();
+  }
 
   SignUp databaseHelper = new SignUp();
   String msgStatus = '';
- final TextEditingController _nameController = new TextEditingController();
+  final TextEditingController _nameController = new TextEditingController();
   final TextEditingController _emailController = new TextEditingController();
 
   final TextEditingController _passwordController = new TextEditingController();
 
-
-  _onPressed(){
+  _onPressed() {
     setState(() {
-      if(_nameController.text.isNotEmpty && _emailController.text.trim().toLowerCase().isNotEmpty &&
-          _passwordController.text.trim().isNotEmpty ){
-        databaseHelper.registerData(_nameController.text.trim(),_emailController.text.trim().toLowerCase(),
-
-            _passwordController.text.trim()).whenComplete((){
-          if(databaseHelper.status==false){
+      if (_nameController.text.isNotEmpty &&
+          _emailController.text.trim().toLowerCase().isNotEmpty &&
+          _passwordController.text.trim().isNotEmpty) {
+        databaseHelper
+            .registerData(
+                _nameController.text.trim(),
+                _emailController.text.trim().toLowerCase(),
+                _passwordController.text.trim())
+            .whenComplete(() {
+          if (databaseHelper.status == false) {
             print(readtwo());
             _showDialog();
             msgStatus = 'Check your information';
-          }else{
+          } else {
             Navigator.pushReplacementNamed(context, 'addcard');
-            databaseHelper.status= true;
-
-
+            databaseHelper.status = true;
           }
         });
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    return 
-         
-Scaffold(
+    return Scaffold(
       body: Container(
-         decoration: new BoxDecoration(
-                    color: CupertinoColors.lightBackgroundGray,
-
-                  ),
+        decoration: new BoxDecoration(
+          color: CupertinoColors.lightBackgroundGray,
+        ),
         padding: EdgeInsets.only(top: 40),
         child: ListView(
           children: <Widget>[
             Stack(
               children: <Widget>[
                 ///////////  background///////////
-                new Container(
-                 
-                ),
+                new Container(),
 
                 Positioned(
                   child: Padding(
@@ -121,8 +113,7 @@ Scaffold(
                                   ),
                                 ),
 
-
-                                   TextField(
+                                TextField(
                                   style: TextStyle(color: Color(0xFF000000)),
                                   controller: _emailController,
                                   cursorColor: Color(0xFF9b9b9b),
@@ -166,8 +157,12 @@ Scaffold(
                                   child: RaisedButton(
                                     child: Padding(
                                       padding: EdgeInsets.only(
-                                          top: 8, bottom: 8, left: 10, right: 10),
-                                      child: Text("انشاء الحساب",
+                                          top: 8,
+                                          bottom: 8,
+                                          left: 10,
+                                          right: 10),
+                                      child: Text(
+                                        "انشاء الحساب",
                                         textDirection: TextDirection.ltr,
                                         style: TextStyle(
                                           color: Colors.white,
@@ -177,13 +172,12 @@ Scaffold(
                                         ),
                                       ),
                                     ),
-                                    color:CupertinoColors.destructiveRed,
+                                    color: CupertinoColors.destructiveRed,
                                     disabledColor: Colors.grey,
                                     shape: new RoundedRectangleBorder(
                                         borderRadius:
                                             new BorderRadius.circular(20.0)),
                                     onPressed: _onPressed,
-                                   
                                   ),
                                 ),
                               ],
@@ -197,7 +191,6 @@ Scaffold(
                           child: InkWell(
                             onTap: () {
                               Navigator.pushReplacementNamed(context, "login");
-                                
                             },
                             child: Text(
                               'تسجيل الدخول',
@@ -212,7 +205,7 @@ Scaffold(
                           ),
                         ),
 
-                                    Padding(
+                        Padding(
                           padding: const EdgeInsets.only(top: 20),
                           child: InkWell(
                             onTap: () {
@@ -242,30 +235,24 @@ Scaffold(
     );
   }
 
-
-    void _showDialog(){
+  void _showDialog() {
     showDialog(
-      context:context ,
-      builder:(BuildContext context){
-        return AlertDialog(
-          title: new Text('Failed'),
-          content:  new Text('Check your email or password'),
-          actions: <Widget>[
-            new RaisedButton(
-
-              child: new Text(
-                'Close',
-                 ),
-
-              onPressed: (){
-                Navigator.of(context).pop();
-              },
-
-            ),
-          ],
-        );
-      }
-    );
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text('Failed'),
+            content: new Text('Check your email or password'),
+            actions: <Widget>[
+              new RaisedButton(
+                child: new Text(
+                  'Close',
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
-
 }

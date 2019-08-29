@@ -151,13 +151,6 @@ class _AddServState extends State<UpdatePageTwo> {
 
   SignUp addcard = SignUp();
 
-  //     _saveadd(String useradd) async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final key = 'addcard';
-  //   final value = useradd;
-  //   prefs.setString(key, value);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

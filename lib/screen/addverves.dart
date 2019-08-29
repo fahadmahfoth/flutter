@@ -11,30 +11,22 @@ class AddServ extends StatefulWidget {
 class _AddServState extends State<AddServ> {
   TextEditingController _controller = new TextEditingController();
 
-
-
-
   void addData(String name) async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'token';
-    final value = prefs.get(key ) ?? null;
+    final value = prefs.get(key) ?? null;
 
     String myUrl = "http://herfa.codeforiraq.org/api/services?name=$name";
-    http.post(myUrl,
-        headers: {
-          'Accept':'application/json',
-          'Authorization' : 'Bearer $value'
-        },
-        body: {
-          "name": "$name",
-        }).then((response){
+    http.post(myUrl, headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $value'
+    }, body: {
+      "name": "$name",
+    }).then((response) {
       print('Response status : ${response.statusCode}');
       print('Response body : ${response.body}');
     });
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -52,21 +44,18 @@ class _AddServState extends State<AddServ> {
             Padding(
               padding: const EdgeInsets.fromLTRB(50, 50, 50, 10),
               child: TextField(
-                
-                
                 controller: _controller,
                 textAlign: TextAlign.right,
                 maxLength: 150,
                 autofocus: true,
-                enableInteractiveSelection: false,   
-                cursorColor: CupertinoColors.destructiveRed, 
-                            
-
-                decoration: InputDecoration(hintText: "اسم الحرفة",border:InputBorder.none),
+                enableInteractiveSelection: false,
+                cursorColor: CupertinoColors.destructiveRed,
+                decoration: InputDecoration(
+                    hintText: "اسم الحرفة", border: InputBorder.none),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(60,15, 60, 15),
+              padding: const EdgeInsets.fromLTRB(60, 15, 60, 15),
               child: RaisedButton(
                 child: Padding(
                   padding:
@@ -86,33 +75,25 @@ class _AddServState extends State<AddServ> {
                 disabledColor: Colors.grey,
                 shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(20.0)),
-                onPressed: (){
+                onPressed: () {
                   print(_controller.text);
                   addData(_controller.text);
-                  Navigator.pushNamed(context,"addcard");
+                  Navigator.pushNamed(context, "addcard");
                 },
               ),
             ),
-
-
-             Container(
-               padding: EdgeInsets.only(left: 100,right: 100,top:10 ),
-               child: OutlineButton(
-                onPressed: (){
+            Container(
+              padding: EdgeInsets.only(left: 100, right: 100, top: 10),
+              child: OutlineButton(
+                onPressed: () {
                   Navigator.pop(context);
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.forward
-                    ),
-                    Text("رجوع")
-                  ],
-                
-            ),
-            ),
-             )
+                  children: <Widget>[Icon(Icons.forward), Text("رجوع")],
+                ),
+              ),
+            )
           ],
         ),
       ),
