@@ -53,21 +53,27 @@ class _tabsHomeState extends State<Cards> {
             if (snapshot.hasData) {
               mydata = snapshot.data;
               return new Scaffold(
-                  floatingActionButton: FloatingActionButton(
+                  floatingActionButton: FloatingActionButton.extended(
+                    label: Row(
+                      children: <Widget>[
+                        Text("رجوع",style: TextStyle(color: Colors.white),),
+                        Icon(CupertinoIcons.forward,color: Colors.white,),
+                      ],
+                    ),
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     highlightElevation: 0.0,
                     isExtended: true,
                     foregroundColor: CupertinoColors.darkBackgroundGray,
-                    backgroundColor: Colors.transparent,
+                    // backgroundColor: Colors.transparent,
                     elevation: 0.0,
-                    child: Row(
-                      children: <Widget>[
-                        Text("رجوع"),
-                        Icon(CupertinoIcons.forward),
-                      ],
-                    ),
+                    // child: Row(
+                    //   children: <Widget>[
+                    //     Text("رجوع"),
+                    //     Icon(CupertinoIcons.forward),
+                    //   ],
+                    // ),
                   ),
                   body: Container(
                       padding: const EdgeInsets.only(top: 25.0),
