@@ -29,19 +29,7 @@ class _tabsHomeState extends State<Cards> {
     gcard.getCard(job_name);
   }
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
 
-  void _onRefresh() async {
-    // monitor network fetch
-    await Future.delayed(Duration(milliseconds: 1000));
-    // if failed,use refreshFailed()
-    _refreshController.refreshCompleted();
-
-    setState(() {
-      gcard.getCard(job_name);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,14 +54,8 @@ class _tabsHomeState extends State<Cards> {
                     highlightElevation: 0.0,
                     isExtended: true,
                     foregroundColor: CupertinoColors.darkBackgroundGray,
-                    // backgroundColor: Colors.transparent,
                     elevation: 0.0,
-                    // child: Row(
-                    //   children: <Widget>[
-                    //     Text("رجوع"),
-                    //     Icon(CupertinoIcons.forward),
-                    //   ],
-                    // ),
+
                   ),
                   body: Container(
                       padding: const EdgeInsets.only(top: 25.0),
@@ -81,9 +63,11 @@ class _tabsHomeState extends State<Cards> {
                       child: new Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Text(
-                            "$job_name",
-                            style: TextStyle(fontSize: 50),
+                          Center(
+                            child: Text(
+                              "$job_name",
+                              style: TextStyle(fontSize: 50),
+                            ),
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 20, right: 20),
@@ -92,16 +76,7 @@ class _tabsHomeState extends State<Cards> {
                             ),
                           ),
                           new Expanded(
-                              child: SmartRefresher(
-                                  header: WaterDropHeader(
-                                    complete: Text("تمت العملية"),
-                                    completeDuration: Duration(seconds: 1),
-                                    idleIcon: Icon(Icons.sync),
-                                    failed: Icon(Icons.cancel),
-                                  ),
-                                  enableTwoLevel: true,
-                                  controller: _refreshController,
-                                  onRefresh: _onRefresh,
+
                                   child: new ListView.builder(
                                       itemCount: mydata.length,
                                       itemBuilder: (context, int i) {
@@ -112,7 +87,7 @@ class _tabsHomeState extends State<Cards> {
                                           numPhone: mydata[i]['numPhone'],
                                           location: mydata[i]['location'],
                                         );
-                                      }))),
+                                      })),
                         ],
                       )));
             } else {
@@ -195,7 +170,7 @@ class Newscard extends StatelessWidget {
               ),
               new ListTile(
                 title: new Text(
-                  "رقم هاتف :  $numPhone",
+                   "رقم هاتف :  $numPhone",
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     fontSize: 18.0,
