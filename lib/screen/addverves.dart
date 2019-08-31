@@ -63,6 +63,7 @@ class _AddServState extends State<AddServ> {
                       EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
                   child: Text(
                     "اضافة ",
+                    
                     textDirection: TextDirection.ltr,
                     style: TextStyle(
                       color: Colors.white,
