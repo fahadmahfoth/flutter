@@ -32,6 +32,7 @@ class _AddServState extends State<AddServ> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         centerTitle: true,
@@ -82,18 +83,7 @@ class _AddServState extends State<AddServ> {
                 },
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(left: 100, right: 100, top: 10),
-              child: OutlineButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[Icon(Icons.forward), Text("رجوع")],
-                ),
-              ),
-            )
+           
           ],
         ),
       ),

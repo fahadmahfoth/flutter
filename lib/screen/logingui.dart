@@ -62,6 +62,13 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text("حرفة"),
+        centerTitle: true,
+        backgroundColor: CupertinoColors.lightBackgroundGray,
+        elevation: 0.0,
+      ),
       body: Container(
         decoration: new BoxDecoration(
           color: CupertinoColors.lightBackgroundGray,

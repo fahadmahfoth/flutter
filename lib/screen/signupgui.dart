@@ -64,6 +64,12 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("حرفة"),
+        elevation: 0.0,
+        backgroundColor:CupertinoColors.lightBackgroundGray ,
+      ),
       body: Container(
         decoration: new BoxDecoration(
           color: CupertinoColors.lightBackgroundGray,
@@ -185,44 +191,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
 
-                        ////////////   new account///////////////
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.pushReplacementNamed(context, "login");
-                            },
-                            child: Text(
-                              'تسجيل الدخول',
-                              textDirection: TextDirection.ltr,
-                              style: TextStyle(
-                                color: CupertinoColors.inactiveGray,
-                                fontSize: 15.0,
-                                decoration: TextDecoration.none,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                        ),
+                      
 
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text(
-                              'الغاء العملية',
-                              textDirection: TextDirection.ltr,
-                              style: TextStyle(
-                                color: CupertinoColors.inactiveGray,
-                                fontSize: 15.0,
-                                decoration: TextDecoration.none,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                        ),
+                       
                       ],
                     ),
                   ),
