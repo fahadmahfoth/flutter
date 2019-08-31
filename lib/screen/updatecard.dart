@@ -1,14 +1,6 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:herfa_test/screen/cards.dart';
 import 'package:herfa_test/user/usertoken.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'cards.dart';
 
 class UpdatePageOne extends StatefulWidget {
   int user_id;
@@ -67,9 +59,7 @@ class _ServesState extends State<UpdatePageOne> {
                           child: GridView.builder(
                             itemCount: snapshot.data.length,
                             itemBuilder: (BuildContext context, int i) {
-// Text(snapshot.data[i]["name"].toString()),
                               var mydata = snapshot.data[i];
-                              //  print(mydata["key"]);
                               return Container(
                                 child: NewServ(
                                     keys: keys,
@@ -125,8 +115,6 @@ class NewServ extends StatelessWidget {
           }));
         },
       ),
-
-      // color: Colors.red[200],
     );
   }
 }

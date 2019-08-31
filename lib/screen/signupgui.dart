@@ -68,7 +68,7 @@ class _SignUpPageState extends State<SignUpPage> {
         centerTitle: true,
         title: Text("حرفة"),
         elevation: 0.0,
-        backgroundColor:CupertinoColors.lightBackgroundGray ,
+        backgroundColor: CupertinoColors.lightBackgroundGray,
       ),
       body: Container(
         decoration: new BoxDecoration(
@@ -190,10 +190,6 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-
-                      
-
-                       
                       ],
                     ),
                   ),

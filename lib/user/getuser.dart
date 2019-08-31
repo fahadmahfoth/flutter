@@ -1,15 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
-import 'package:herfa_test/screen/addcard.dart';
 import 'package:herfa_test/screen/updatecard.dart';
 import 'package:herfa_test/user/usertoken.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
@@ -55,8 +49,6 @@ class _tabsHomeState extends State<Profile> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(5),
-      //  decoration: buildBoxDecoration(),
-
       child: FutureBuilder(
         future: guser.getUser(),
         builder: (BuildContext context, snapshot) {

@@ -1,11 +1,6 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:herfa_test/user/usertoken.dart';
-import 'package:http/http.dart' as http;
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 var mydata;
 
@@ -29,8 +24,6 @@ class _tabsHomeState extends State<Cards> {
     gcard.getCard(job_name);
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,8 +37,14 @@ class _tabsHomeState extends State<Cards> {
                   floatingActionButton: FloatingActionButton.extended(
                     label: Row(
                       children: <Widget>[
-                        Text("رجوع",style: TextStyle(color: Colors.white),),
-                        Icon(CupertinoIcons.forward,color: Colors.white,),
+                        Text(
+                          "رجوع",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Icon(
+                          CupertinoIcons.forward,
+                          color: Colors.white,
+                        ),
                       ],
                     ),
                     onPressed: () {
@@ -55,7 +54,6 @@ class _tabsHomeState extends State<Cards> {
                     isExtended: true,
                     foregroundColor: CupertinoColors.darkBackgroundGray,
                     elevation: 0.0,
-
                   ),
                   body: Container(
                       padding: const EdgeInsets.only(top: 25.0),
@@ -76,18 +74,17 @@ class _tabsHomeState extends State<Cards> {
                             ),
                           ),
                           new Expanded(
-
-                                  child: new ListView.builder(
-                                      itemCount: mydata.length,
-                                      itemBuilder: (context, int i) {
-                                        return new Newscard(
-                                          id: mydata[i]['key'],
-                                          user_name: mydata[i]['user name'],
-                                          job: mydata[i]['Job'],
-                                          numPhone: mydata[i]['numPhone'],
-                                          location: mydata[i]['location'],
-                                        );
-                                      })),
+                              child: new ListView.builder(
+                                  itemCount: mydata.length,
+                                  itemBuilder: (context, int i) {
+                                    return new Newscard(
+                                      id: mydata[i]['key'],
+                                      user_name: mydata[i]['user name'],
+                                      job: mydata[i]['Job'],
+                                      numPhone: mydata[i]['numPhone'],
+                                      location: mydata[i]['location'],
+                                    );
+                                  })),
                         ],
                       )));
             } else {
@@ -170,7 +167,7 @@ class Newscard extends StatelessWidget {
               ),
               new ListTile(
                 title: new Text(
-                   "رقم هاتف :  $numPhone",
+                  "رقم هاتف :  $numPhone",
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     fontSize: 18.0,

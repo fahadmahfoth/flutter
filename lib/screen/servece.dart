@@ -1,11 +1,7 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:herfa_test/screen/cards.dart';
 import 'package:herfa_test/user/usertoken.dart';
-import 'package:http/http.dart' as http;
 
 import 'cards.dart';
 
@@ -19,7 +15,6 @@ class _ServesState extends State<Serves> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     gser.getServ();
   }

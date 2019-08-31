@@ -1,15 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:herfa_test/screen/cards.dart';
 import 'package:herfa_test/user/usertoken.dart';
-import 'package:http/http.dart' as http;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'cards.dart';
 
 class AddPageZero extends StatelessWidget {
   SignUp guuser = SignUp();
@@ -41,7 +35,6 @@ class _ServesState extends State<AddPageOne> {
   int user_id;
   _ServesState(this.user_id);
   SignUp gser = SignUp();
-
   @override
   void initState() {
     super.initState();
@@ -174,9 +167,7 @@ class _AddServState extends State<AddPageTwo> {
   _AddServState({this.user_id, this.ser_id});
   TextEditingController _controller = new TextEditingController();
   TextEditingController _phcontroller = new TextEditingController();
-
   SignUp addcard = SignUp();
-
   _saveadd(String useradd) async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'addcard';
