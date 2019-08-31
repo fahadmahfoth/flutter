@@ -314,7 +314,7 @@ class PageOne extends StatelessWidget {
                             "Code for Iraq",
                             textAlign: TextAlign.center,
                           ),
-                          subtitle: Text("info@codeforiraq@org",
+                          subtitle: Text("info@codeforiraq.org",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize:
