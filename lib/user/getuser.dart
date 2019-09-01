@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:herfa_test/screen/updatecard.dart';
-import 'package:herfa_test/user/usertoken.dart';
+import 'package:Herfa/screen/updatecard.dart';
+import 'package:Herfa/user/usertoken.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {

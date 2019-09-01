@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:herfa_test/user/usertoken.dart';
+import 'package:Herfa/user/usertoken.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -207,12 +207,18 @@ class _SignUpPageState extends State<SignUpPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text('Failed'),
-            content: new Text('Check your email or password'),
+            title: new Text(
+              'خطأ',
+              textAlign: TextAlign.center,
+            ),
+            content: new Text(
+              'تاكد من كتابة المعلومات بشكل صحيح',
+              textAlign: TextAlign.right,
+            ),
             actions: <Widget>[
-              new RaisedButton(
+              new OutlineButton(
                 child: new Text(
-                  'Close',
+                  'اغلاق',
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:herfa_test/screen/signupgui.dart';
-import 'package:herfa_test/user/usertoken.dart';
+import 'package:Herfa/screen/signupgui.dart';
+import 'package:Herfa/user/usertoken.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
