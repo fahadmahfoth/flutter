@@ -7,8 +7,7 @@ import 'addcard.dart';
 import 'addverves.dart';
 import 'cards.dart';
 import 'logingui.dart';
-import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
-
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'servece.dart';
 
 class Home extends StatefulWidget {
@@ -25,17 +24,17 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        primaryColor: Colors.white,
           fontFamily: "gen01",
-          cardColor: CupertinoColors.extraLightBackgroundGray,
-          canvasColor: CupertinoColors.white,
+          cardColor:   Color(0xffBEB9C0),
           appBarTheme: AppBarTheme(
-              iconTheme: IconThemeData(color: CupertinoColors.destructiveRed),
+              iconTheme: IconThemeData(color: Colors.amberAccent),
               textTheme: TextTheme(
                   title: TextStyle(
                       color: CupertinoColors.destructiveRed.withOpacity(0.9),
                       fontSize: 25,
                       fontFamily: "gen01"))),
-          accentColor: CupertinoColors.destructiveRed),
+          accentColor: Color(0xff16324A)),
       routes: {
         "interface": (context) => InterFace(themdata),
         "login": (context) => LoginPage(),
@@ -84,26 +83,54 @@ class _InterFaceState extends State<InterFace> {
             "حرفة",
             textAlign: TextAlign.right,
           ),
-          backgroundColor: Colors.transparent,
+          // backgroundColor: Colors.transparent,
           elevation: 0.0,
         ),
-        bottomNavigationBar: FancyBottomNavigation(
-          onTabChangedListener: (int index) {
+        bottomNavigationBar: BottomNavyBar(
+          items: [
+                 BottomNavyBarItem(
+       icon: Icon(Icons.menu),
+       title: Text('الرئيسية'),
+       activeColor: Color(0xff384064),
+     ),
+     BottomNavyBarItem(
+         icon: Icon(Icons.person),
+         title: Text('الملف الشخصي'),
+         activeColor: Color(0xff24385E)
+     ),
+     BottomNavyBarItem(
+         icon: Icon(Icons.message),
+         title: Text('حول',textAlign: TextAlign.right,),
+         activeColor: Color(0xff16324A)
+     ),
+
+          ],
+          onItemSelected:(int index) {
             setState(() {
               _selectedPage = index;
             });
-          },
-          inactiveIconColor: CupertinoColors.darkBackgroundGray,
-          activeIconColor: CupertinoColors.destructiveRed,
-          circleColor: CupertinoColors.white,
-          initialSelection: _selectedPage,
-          tabs: [
-            TabData(iconData: Icons.home, title: "الرئيسية"),
-            TabData(iconData: Icons.person, title: "الملف الشخصي"),
-            TabData(iconData: Icons.info, title: "حول")
-          ],
+          }, 
+          selectedIndex: _selectedPage,
+          //         barBackgroundColor: Color(0xffB48D94),
+
+          // onTabChangedListener: (int index) {
+          //   setState(() {
+          //     _selectedPage = index;
+          //   });
+          // },
+          // inactiveIconColor: CupertinoColors.darkBackgroundGray,
+          // activeIconColor: CupertinoColors.destructiveRed,
+          // circleColor: CupertinoColors.white,
+          // initialSelection: _selectedPage,
+          // tabs: [
+          //   TabData(iconData: Icons.home, title: "الرئيسية"),
+          //   TabData(iconData: Icons.person, title: "الملف الشخصي"),
+          //   TabData(iconData: Icons.info, title: "حول")
+          // ],
         ),
-        body: _pageOptions[_selectedPage]);
+        body: 
+        
+        _pageOptions[_selectedPage]);
   }
 }
 
@@ -133,7 +160,7 @@ class PageOne extends StatelessWidget {
                     right: 10,
                     child: Text(
                       "حرفة",
-                      style: TextStyle(fontSize: 40),
+                      style: TextStyle(fontSize: 40,color: Color(0xffD7EFF7)),
                     ),
                   ),
                   Positioned(
@@ -224,7 +251,7 @@ class PageOne extends StatelessWidget {
                     child: Text(
                       "Code for Iraq",
                       textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 40),
+                      style: TextStyle(fontSize: 40,color: Color(0xffD7EFF7)),
                     ),
                   ),
                   Positioned(
@@ -290,13 +317,14 @@ class PageOne extends StatelessWidget {
                           child: Text(
                             "المطورين",
                             textAlign: TextAlign.right,
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 20,color: Color(0xff384064)),
                           ),
                         ),
                         ListTile(
                           title: Text(
                             "فهد محفوظ ",
                             textAlign: TextAlign.right,
+                            style: TextStyle(color: Color(0xff384064)),
                           ),
                           subtitle: Text("مُبرمج",
                               textAlign: TextAlign.right,
@@ -306,6 +334,7 @@ class PageOne extends StatelessWidget {
                           title: Text(
                             "ربيع علي",
                             textAlign: TextAlign.right,
+                            style: TextStyle(color: Color(0xff384064)),
                           ),
                           subtitle: Text("مُبرمج",
                               textAlign: TextAlign.right,
@@ -319,8 +348,10 @@ class PageOne extends StatelessWidget {
                           title: Text(
                             "Code for Iraq",
                             textAlign: TextAlign.center,
+                            style: TextStyle(color: Color(0xff384064)),
                           ),
                           subtitle: Text("info@codeforiraq.org",
+
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize:

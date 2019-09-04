@@ -120,7 +120,7 @@ class Newscard extends StatelessWidget {
             appBar: AppBar(
               actions: <Widget>[
                 IconButton(
-                  icon: Icon(CupertinoIcons.pen),
+                  icon: Icon(CupertinoIcons.pen,color: Color(0xff384064),),
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
@@ -130,7 +130,7 @@ class Newscard extends StatelessWidget {
                 )
               ],
               title: Text('البطاقة التعريفية',
-                  style: TextStyle(color: Colors.black)),
+                  style: TextStyle(color: Color(0xff384064))),
               centerTitle: true,
               backgroundColor: Colors.transparent,
               elevation: 0.0,
@@ -151,11 +151,12 @@ class Newscard extends StatelessWidget {
                       title: Text(
                         "الاسم",
                         textAlign: TextAlign.right,
+                        style: TextStyle(color:Color(0xff384064) ),
                       ),
                       subtitle: Text(
                         name,
                         textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 25),
+                        style: TextStyle(fontSize: 25,color: Color(0xff384064)),
                       ),
                     ),
                     Padding(
@@ -168,11 +169,12 @@ class Newscard extends StatelessWidget {
                       title: Text(
                         "الايميل",
                         textAlign: TextAlign.right,
+                            style: TextStyle(color:Color(0xff384064) )
                       ),
                       subtitle: Text(
                         email,
                         textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 25),
+                        style: TextStyle(fontSize: 25,color:Color(0xff384064)),
                       ),
                     ),
                     Padding(
@@ -185,11 +187,12 @@ class Newscard extends StatelessWidget {
                       title: Text(
                         "رقم الهاتف",
                         textAlign: TextAlign.right,
+                            style: TextStyle(color:Color(0xff384064) )
                       ),
                       subtitle: Text(
                         numPhone,
                         textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 25),
+                        style: TextStyle(fontSize: 25,color:Color(0xff384064)),
                       ),
                     ),
                     Padding(
@@ -202,11 +205,12 @@ class Newscard extends StatelessWidget {
                       title: Text(
                         "الحرفة",
                         textAlign: TextAlign.right,
+                            style: TextStyle(color:Color(0xff384064) )
                       ),
                       subtitle: Text(
                         Job,
                         textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 25),
+                        style: TextStyle(fontSize: 25,color:Color(0xff384064)),
                       ),
                     ),
                     Padding(
@@ -219,11 +223,12 @@ class Newscard extends StatelessWidget {
                       title: Text(
                         "العنوان",
                         textAlign: TextAlign.right,
+                            style: TextStyle(color:Color(0xff384064) )
                       ),
                       subtitle: Text(
                         location,
                         textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 25),
+                        style: TextStyle(fontSize: 25,color: Color(0xff384064)),
                       ),
                     ),
                     Padding(
