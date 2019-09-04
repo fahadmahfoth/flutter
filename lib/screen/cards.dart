@@ -205,43 +205,45 @@ class Newscard extends StatelessWidget {
 
               
           
-           Card(
-            // color: Colors.white.withOpacity(0.75),
-            
+           Container(
+             child: Card(
+              // color: Colors.white.withOpacity(0.75),
               
-              child: new Column(
-                children: <Widget>[
+                
+                child: new Column(
+                  children: <Widget>[
 
 
   new ListTile(
-                    title: new Text(
-                      "رقم هاتف :  $numPhone",
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                        fontSize: 25.0,
-                        color: Color(0xff384064)
+                      title: new Text(
+                        "رقم هاتف :  $numPhone",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 25.0,
+                          color: Color(0xff384064)
+                        ),
                       ),
-                    ),
-                    subtitle: Text(
-                      "المكان : $location ",
+                      subtitle: Text(
+                        "المكان : $location ",
 
-                      textAlign: TextAlign.right,
-                      style: TextStyle(fontSize: 25,color: Color(0xff384064)),
-                    ),
-                  )
-                  ]),
+                        textAlign: TextAlign.right,
+                        style: TextStyle(fontSize: 25,color: Color(0xff384064)),
+                      ),
+                    )
+                    ]),
 
-                
+                  
+                  
                 
               
-            
           ),
+           ),
         
            
           ],
         ),
 
-        Padding(padding: EdgeInsets.only(left: 20,right: 20),child: Divider(color: Colors.black,),)
+        Padding(padding: EdgeInsets.all(20))
       ],
     );
     
