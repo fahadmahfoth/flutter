@@ -72,7 +72,7 @@ class _tabsHomeState extends State<Cards> {
                           Center(
                             child: Text(
                               "$job_name",
-                              style: TextStyle(fontSize: 50),
+                              style: TextStyle(fontSize: 50,color: Color(0xff384064)),
                             ),
                           ),
                           Padding(
@@ -164,7 +164,7 @@ class _tabsHomeState extends State<Cards> {
             hintText: "ابحث   -الاسم - المنطقة - رقم الهاتف",
             hintStyle: TextStyle(
               fontSize: 15.0,
-              color: Colors.black,
+              color: Color(0xff384064),
             ),
           ),
           maxLines: 1,
@@ -199,8 +199,9 @@ class Newscard extends StatelessWidget {
       children: <Widget>[
         new ExpansionTile(
           initiallyExpanded: false,
+          trailing: Icon(Icons.arrow_drop_down_circle),
 
-          title: Text(user_name,textAlign: TextAlign.center,style: TextStyle(fontSize: 25),),
+          title: Text(user_name,textAlign: TextAlign.center,style: TextStyle(fontSize: 25,color: Color(0xff384064)),),
           children: <Widget>[
 
               
