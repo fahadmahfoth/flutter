@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:Herfa/screen/signupgui.dart';
 import 'package:Herfa/user/usertoken.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -63,166 +63,159 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(icon: Icon(Icons.arrow_back),onPressed: (){
+          Navigator.pushReplacementNamed(context, "interface");
+        },),
         automaticallyImplyLeading: false,
         title: Text("حرفة"),
         centerTitle: true,
         backgroundColor: CupertinoColors.lightBackgroundGray,
         elevation: 0.0,
       ),
-      body: Container(
-        decoration: new BoxDecoration(
-          color: CupertinoColors.lightBackgroundGray,
-        ),
-        padding: EdgeInsets.only(top: 40),
-        child: ListView(
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                ///////////  background///////////
-                new Container(
-                  decoration: new BoxDecoration(
-                      color: CupertinoColors.lightBackgroundGray),
-                ),
+      body: DoubleBackToCloseApp(
+        snackBar: const SnackBar(
+            content: Text('اضغط مرة ثانية للخروج',textAlign: TextAlign.right,),
+          ),
+              child: Container(
+          decoration: new BoxDecoration(
+            color: CupertinoColors.lightBackgroundGray,
+          ),
+          padding: EdgeInsets.only(top: 40),
+          child: ListView(
+            children: <Widget>[
+              
+              
+              Stack(
+                children: <Widget>[
+                  ///////////  background///////////
+                  new Container(
+                    decoration: new BoxDecoration(
+                        color: CupertinoColors.lightBackgroundGray),
+                  ),
 
-                Positioned(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Card(
-                          elevation: 4.0,
-                          color: Colors.white,
-                          margin: EdgeInsets.only(left: 20, right: 20),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                /////////////  Email//////////////
+                  Positioned(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Card(
+                            elevation: 4.0,
+                            color: Colors.white,
+                            margin: EdgeInsets.only(left: 20, right: 20),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  /////////////  Email//////////////
 
-                                TextField(
-                                  style: TextStyle(color: Color(0xFF000000)),
-                                  controller: _emailController,
-                                  cursorColor: Color(0xFF9b9b9b),
-                                  keyboardType: TextInputType.text,
-                                  decoration: InputDecoration(
-                                    prefixIcon: Icon(
-                                      Icons.alternate_email,
-                                      color: Colors.grey,
+                                  TextField(
+                                    style: TextStyle(color: Color(0xFF000000)),
+                                    controller: _emailController,
+                                    cursorColor: Color(0xFF9b9b9b),
+                                    keyboardType: TextInputType.text,
+                                    decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.alternate_email,
+                                        color: Colors.grey,
+                                      ),
+                                      hintText: "Email",
+                                      hintStyle: TextStyle(
+                                          color: Color(0xFF9b9b9b),
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.normal),
                                     ),
-                                    hintText: "Email",
-                                    hintStyle: TextStyle(
-                                        color: Color(0xFF9b9b9b),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.normal),
                                   ),
-                                ),
 
-                                /////////////// password////////////////////
+                                  /////////////// password////////////////////
 
-                                TextField(
-                                  style: TextStyle(color: Color(0xFF000000)),
-                                  cursorColor: Color(0xFF9b9b9b),
-                                  controller: _passwordController,
-                                  keyboardType: TextInputType.text,
-                                  obscureText: true,
-                                  decoration: InputDecoration(
-                                    prefixIcon: Icon(
-                                      Icons.vpn_key,
-                                      color: Colors.grey,
+                                  TextField(
+                                    style: TextStyle(color: Color(0xFF000000)),
+                                    cursorColor: Color(0xFF9b9b9b),
+                                    controller: _passwordController,
+                                    keyboardType: TextInputType.text,
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.vpn_key,
+                                        color: Colors.grey,
+                                      ),
+                                      hintText: "Password",
+                                      hintStyle: TextStyle(
+                                          color: Color(0xFF9b9b9b),
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.normal),
                                     ),
-                                    hintText: "Password",
-                                    hintStyle: TextStyle(
-                                        color: Color(0xFF9b9b9b),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.normal),
                                   ),
-                                ),
-                                /////////////  LogIn Botton///////////////////
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: RaisedButton(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 8,
-                                          bottom: 8,
-                                          left: 10,
-                                          right: 10),
-                                      child: Text(
-                                        "تسجيل الدخول",
-                                        textDirection: TextDirection.ltr,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15.0,
-                                          decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.normal,
+                                  /////////////  LogIn Botton///////////////////
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: RaisedButton(
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 8,
+                                            bottom: 8,
+                                            left: 10,
+                                            right: 10),
+                                        child: Text(
+                                          "تسجيل الدخول",
+                                          textDirection: TextDirection.ltr,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15.0,
+                                            decoration: TextDecoration.none,
+                                            fontWeight: FontWeight.normal,
+                                          ),
                                         ),
                                       ),
+                                      color: CupertinoColors.destructiveRed,
+                                      disabledColor: Colors.grey,
+                                      shape: new RoundedRectangleBorder(
+                                          borderRadius:
+                                              new BorderRadius.circular(20.0)),
+                                      onPressed: _onPressed,
                                     ),
-                                    color: CupertinoColors.destructiveRed,
-                                    disabledColor: Colors.grey,
-                                    shape: new RoundedRectangleBorder(
-                                        borderRadius:
-                                            new BorderRadius.circular(20.0)),
-                                    onPressed: _onPressed,
                                   ),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                          ////////////   new account///////////////
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    new MaterialPageRoute(
+                                        builder: (context) => SignUpPage()));
+                              },
+                              child: Text(
+                                'انشاء حساب جديد',
+                                textDirection: TextDirection.ltr,
+                                style: TextStyle(
+                                  color: CupertinoColors.inactiveGray,
+                                  fontSize: 15.0,
+                                  decoration: TextDecoration.none,
+                                  fontWeight: FontWeight.normal,
                                 ),
-                              ],
-                            ),
-                          ),
-                        ),
-
-                        ////////////   new account///////////////
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  new MaterialPageRoute(
-                                      builder: (context) => SignUpPage()));
-                            },
-                            child: Text(
-                              'انشاء حساب جديد',
-                              textDirection: TextDirection.ltr,
-                              style: TextStyle(
-                                color: CupertinoColors.inactiveGray,
-                                fontSize: 15.0,
-                                decoration: TextDecoration.none,
-                                fontWeight: FontWeight.normal,
                               ),
                             ),
                           ),
-                        ),
 
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.popAndPushNamed(context, "interface");
-                            },
-                            child: Text(
-                              'الغاء العملية',
-                              textDirection: TextDirection.ltr,
-                              style: TextStyle(
-                                color: CupertinoColors.inactiveGray,
-                                fontSize: 15.0,
-                                decoration: TextDecoration.none,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+
+                        ],
+                      ),
                     ),
-                  ),
-                )
-              ],
-            ),
-          ],
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

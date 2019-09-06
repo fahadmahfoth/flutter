@@ -37,10 +37,20 @@ class _tabsHomeState extends State<Profile> {
       Navigator.of(context).pushReplacementNamed("login");
     }
   }
+    readp() async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'p';
+    final value = prefs.get(key) ?? null;
+    if (value.toString().contains("no")) {
+      print(value.toString());
+      Navigator.of(context).pushReplacementNamed("addcard");
+    }
+  }
 
   @override
   void initState() {
     read();
+    readp();
     super.initState();
     guser.getUser();
   }

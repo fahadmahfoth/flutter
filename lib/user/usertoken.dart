@@ -63,6 +63,12 @@ class SignUp {
     final value = prefs.get(key) ?? 0;
     print('read : $value');
   }
+  _savep(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'p';
+    final value = token;
+    prefs.setString(key, value);
+  }
 
   Future getServ() async {
     try {
@@ -110,6 +116,7 @@ class SignUp {
       "numPhone": "$numPhone",
       "location": "$location",
     }).then((response) {
+      _savep("p");
       print('Response status : ${response.statusCode}');
       print('Response body : ${response.body}');
     });

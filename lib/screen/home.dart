@@ -1,7 +1,7 @@
 import 'package:Herfa/user/getuser.dart';
 import 'package:Herfa/user/usertoken.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'addcard.dart';
 import 'addverves.dart';
@@ -28,7 +28,8 @@ class _HomeState extends State<Home> {
           fontFamily: "gen01",
           cardColor:   Color(0xffBEB9C0),
           appBarTheme: AppBarTheme(
-              iconTheme: IconThemeData(color: Colors.amberAccent),
+              iconTheme: IconThemeData(color: Colors.red),
+
               textTheme: TextTheme(
                   title: TextStyle(
                       color: CupertinoColors.destructiveRed.withOpacity(0.9),
@@ -36,7 +37,7 @@ class _HomeState extends State<Home> {
                       fontFamily: "gen01"))),
           accentColor: Color(0xff16324A)),
       routes: {
-        "interface": (context) => InterFace(themdata),
+        "interface": (context) => InterFace(),
         "login": (context) => LoginPage(),
         "profile": (context) => Profile(),
         "cards": (context) => Cards(),
@@ -49,16 +50,13 @@ class _HomeState extends State<Home> {
 }
 
 class InterFace extends StatefulWidget {
-  InterFace(this.themdata);
-  bool themdata = false;
+
 
   @override
-  _InterFaceState createState() => _InterFaceState(themdata);
+  _InterFaceState createState() => _InterFaceState();
 }
 
 class _InterFaceState extends State<InterFace> {
-  _InterFaceState(this.themdata);
-  bool themdata;
 
   int _selectedPage = 0;
 
@@ -128,9 +126,11 @@ class _InterFaceState extends State<InterFace> {
           //   TabData(iconData: Icons.info, title: "حول")
           // ],
         ),
-        body: 
-        
-        _pageOptions[_selectedPage]);
+        body: DoubleBackToCloseApp(
+   snackBar: const SnackBar(
+            content: Text('اضغط مرة ثانية للخروج',textAlign: TextAlign.right,),
+          ),
+  child: _pageOptions[_selectedPage]));
   }
 }
 

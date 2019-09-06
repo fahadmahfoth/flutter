@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Herfa/user/usertoken.dart';
@@ -53,6 +54,12 @@ class _ServesState extends State<AddPageOne> {
       gser.getServ();
     });
   }
+   _savep(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'p';
+    final value = token;
+    prefs.setString(key, value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +72,13 @@ class _ServesState extends State<AddPageOne> {
             onRefresh: _onRefresh,
             child: Scaffold(
                 appBar: AppBar(
+                            leading: IconButton(icon: Icon(Icons.arrow_back),onPressed: (){
+            setState(() {
+              _savep("no");
+            });
+          Navigator.pushReplacementNamed(context, "interface");
+        },),
+        automaticallyImplyLeading: false,
                   backgroundColor: Colors.transparent,
                   elevation: 0.0,
                   title: Text(
@@ -80,36 +94,41 @@ class _ServesState extends State<AddPageOne> {
                   backgroundColor: CupertinoColors.destructiveRed,
                   icon: Icon(Icons.add),
                 ),
-                body: Center(
-                  child: new Container(
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width - 10,
-                      child: Column(
-                        children: <Widget>[
-                          Divider(
-                            color: CupertinoColors.darkBackgroundGray,
-                          ),
-                          Expanded(
-                            child: GridView.builder(
-                              itemCount: snapshot.data.length,
-                              itemBuilder: (BuildContext context, int i) {
-// Text(snapshot.data[i]["name"].toString()),
-                                var mydata = snapshot.data[i];
-                                //  print(mydata["key"]);
-                                return Container(
-                                  child: NewServ(
-                                      user_id: user_id,
-                                      ser_id: mydata["key"],
-                                      name: mydata["name"]),
-                                );
-                              },
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3),
+                body: DoubleBackToCloseApp(
+                     snackBar: const SnackBar(
+            content: Text('اضغط مرة ثانية للخروج',textAlign: TextAlign.right,),
+          ),
+                                  child: Center(
+                    child: new Container(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width - 10,
+                        child: Column(
+                          children: <Widget>[
+                            Divider(
+                              color: CupertinoColors.darkBackgroundGray,
                             ),
-                          ),
-                        ],
-                      )),
+                            Expanded(
+                              child: GridView.builder(
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (BuildContext context, int i) {
+// Text(snapshot.data[i]["name"].toString()),
+                                  var mydata = snapshot.data[i];
+                                  //  print(mydata["key"]);
+                                  return Container(
+                                    child: NewServ(
+                                        user_id: user_id,
+                                        ser_id: mydata["key"],
+                                        name: mydata["name"]),
+                                  );
+                                },
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3),
+                              ),
+                            ),
+                          ],
+                        )),
+                  ),
                 )),
           );
         } else {
@@ -168,12 +187,13 @@ class _AddServState extends State<AddPageTwo> {
   TextEditingController _controller = new TextEditingController();
   TextEditingController _phcontroller = new TextEditingController();
   SignUp addcard = SignUp();
-  _saveadd(String useradd) async {
+  _savep(String token) async {
     final prefs = await SharedPreferences.getInstance();
-    final key = 'addcard';
-    final value = useradd;
+    final key = 'p';
+    final value = token;
     prefs.setString(key, value);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -246,8 +266,11 @@ class _AddServState extends State<AddPageTwo> {
                       service_id: ser_id,
                       numPhone: _phcontroller.text.trim(),
                       location: _controller.text);
+                      setState(() {
+                        _savep('yes');
+                      });
                   Navigator.pushReplacementNamed(context, "interface");
-                  _saveadd("card added");
+                
                 },
               ),
             ),

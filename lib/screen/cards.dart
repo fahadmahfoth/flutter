@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Herfa/user/usertoken.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 
 var mydata;
-
-
 
 class Cards extends StatefulWidget {
   Cards({this.job_name});
@@ -15,7 +14,7 @@ class Cards extends StatefulWidget {
 }
 
 class _tabsHomeState extends State<Cards> {
-  String uri= "";
+  String uri = "";
 
   _tabsHomeState(this.job_name);
 
@@ -28,12 +27,8 @@ class _tabsHomeState extends State<Cards> {
     gcard.getCard(job_name);
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
-
-    
     return Container(
       child: Scaffold(
         body: new FutureBuilder(
@@ -42,16 +37,27 @@ class _tabsHomeState extends State<Cards> {
             if (snapshot.hasData) {
               mydata = snapshot.data;
               return new Scaffold(
+                  appBar: AppBar(
+                    title: Text(
+                      "$job_name",
+                      style: TextStyle(color: Color(0xff384064)),
+                    ),
+                    centerTitle: true,
+                    backgroundColor: Colors.transparent,
+                    elevation: 0.0,
+                    automaticallyImplyLeading: false,
+                  ),
                   floatingActionButton: FloatingActionButton.extended(
                     label: Row(
                       children: <Widget>[
-                        Text(
+
+                        Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
+                        ),
+                          Text(
                           "رجوع",
                           style: TextStyle(color: Colors.white),
-                        ),
-                        Icon(
-                          CupertinoIcons.forward,
-                          color: Colors.white,
                         ),
                       ],
                     ),
@@ -63,39 +69,49 @@ class _tabsHomeState extends State<Cards> {
                     foregroundColor: CupertinoColors.darkBackgroundGray,
                     elevation: 0.0,
                   ),
-                  body: Container(
-                      padding: const EdgeInsets.only(top: 25.0),
-                      alignment: Alignment.center,
-                      child: new Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Center(
-                            child: Text(
-                              "$job_name",
-                              style: TextStyle(fontSize: 50,color: Color(0xff384064)),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 20, right: 20),
-                            child: Divider(
-                              color: Colors.black,
-                            ),
-                          ),
-                          _search_in_body(),
-                          new Expanded(
-                              child: new ListView.builder(
-                                  itemCount: snapshot.toString().contains(uri)?snapshot.data.length:0,
-                                  itemBuilder: (context, int i) {
-                                    return mydata[i].toString().contains(uri)? new Newscard(
-                                      id: mydata[i]['key'],
-                                      user_name: mydata[i]['user name'],
-                                      job: mydata[i]['Job'],
-                                      numPhone: mydata[i]['numPhone'],
-                                      location: mydata[i]['location'],
-                                    ):Padding(padding: EdgeInsets.all(0),);
-                                  })),
-                        ],
-                      )));
+                  floatingActionButtonLocation:
+                      FloatingActionButtonLocation.startTop,
+                  body: DoubleBackToCloseApp(
+                    snackBar: const SnackBar(
+                      content: Text(
+                        'اضغط مرة ثانية للخروج',
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
+                    child: Container(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        alignment: Alignment.center,
+                        child: new Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            // Padding(
+                            //   padding: EdgeInsets.only(left: 20, right: 20),
+                            //   child: Divider(
+                            //     color: Colors.black,
+                            //   ),
+                            // ),
+                            _search_in_body(),
+                            new Expanded(
+                                child: new ListView.builder(
+                                    itemCount: snapshot.toString().contains(uri)
+                                        ? snapshot.data.length
+                                        : 0,
+                                    itemBuilder: (context, int i) {
+                                      return mydata[i].toString().contains(uri)
+                                          ? new Newscard(
+                                              id: mydata[i]['key'],
+                                              user_name: mydata[i]['user name'],
+                                              job: mydata[i]['Job'],
+                                              numPhone: mydata[i]['numPhone'],
+                                              location: mydata[i]['location'],
+                                            )
+                                          : Padding(
+                                              padding: EdgeInsets.all(0),
+                                            );
+                                    })),
+                          ],
+                        )),
+                  ));
             } else {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -123,13 +139,9 @@ class _tabsHomeState extends State<Cards> {
         ),
       ),
     );
-
-
-
-    
   }
-  
-   Widget _search_in_body() {
+
+  Widget _search_in_body() {
     return Padding(
       padding: EdgeInsets.all(10),
       child: Container(
@@ -145,7 +157,6 @@ class _tabsHomeState extends State<Cards> {
             color: Colors.black,
           ),
           decoration: InputDecoration(
-            
             contentPadding: EdgeInsets.all(10.0),
             border: InputBorder.none,
             // border: OutlineInputBorder(
@@ -154,7 +165,7 @@ class _tabsHomeState extends State<Cards> {
             //     color: Colors.white,
             //   ),
             // ),
-            
+
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.white,
@@ -175,8 +186,8 @@ class _tabsHomeState extends State<Cards> {
           },
         ),
       ),
-    );}
-  
+    );
+  }
 }
 
 class Newscard extends StatelessWidget {
@@ -200,77 +211,39 @@ class Newscard extends StatelessWidget {
         new ExpansionTile(
           initiallyExpanded: false,
           trailing: Icon(Icons.arrow_drop_down_circle),
-
-          title: Text(user_name,textAlign: TextAlign.center,style: TextStyle(fontSize: 25,color: Color(0xff384064)),),
-          children: <Widget>[
-
-              
-          
-           Container(
-             child: Card(
-              // color: Colors.white.withOpacity(0.75),
-              
-                
-                child: new Column(
-                  children: <Widget>[
-
-
-  new ListTile(
-                      title: new Text(
-                        "رقم هاتف :  $numPhone",
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          fontSize: 25.0,
-                          color: Color(0xff384064)
-                        ),
-                      ),
-                      subtitle: Text(
-                        "المكان : $location ",
-
-                        textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 25,color: Color(0xff384064)),
-                      ),
-                    )
-                    ]),
-
-                  
-                  
-                
-              
+          title: Text(
+            user_name,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 25, color: Color(0xff384064)),
           ),
-           ),
-        
-           
+          children: <Widget>[
+            Container(
+              child: Card(
+                // color: Colors.white.withOpacity(0.75),
+
+                child: new Column(children: <Widget>[
+                  new ListTile(
+                    title: new Text(
+                      "رقم هاتف :  $numPhone",
+                      textAlign: TextAlign.right,
+                      style:
+                          TextStyle(fontSize: 25.0, color: Color(0xff384064)),
+                    ),
+                    subtitle: Text(
+                      "المكان : $location ",
+                      textAlign: TextAlign.right,
+                      style: TextStyle(fontSize: 25, color: Color(0xff384064)),
+                    ),
+                  )
+                ]),
+              ),
+            ),
           ],
         ),
-
         Padding(padding: EdgeInsets.all(20))
       ],
     );
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     //  Container(
     //   padding: EdgeInsets.all(10),
     //   child: Card(
