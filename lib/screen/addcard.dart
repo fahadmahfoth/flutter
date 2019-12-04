@@ -1,294 +1,323 @@
-import 'dart:async';
-import 'package:double_back_to_close_app/double_back_to_close_app.dart';
+
+import 'package:Herfa/screen/addverves.dart';
+import 'package:Herfa/user/usertoken.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:Herfa/user/usertoken.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AddPageZero extends StatelessWidget {
-  SignUp guuser = SignUp();
+
+
+class AddS extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: guuser.getUser(),
-      builder: (BuildContext context, snapshot) {
-        if (snapshot.hasData) {
-          return AddPageOne(user_id: snapshot.data["key"]);
-        } else {
-          return Container(
-              color: Colors.white,
-              child: Center(child: CircularProgressIndicator()));
-        }
-      },
-    );
-  }
+  _ServesState createState() => _ServesState();
 }
 
-class AddPageOne extends StatefulWidget {
-  int user_id;
-  AddPageOne({this.user_id});
-  @override
-  _ServesState createState() => _ServesState(user_id);
-}
-
-class _ServesState extends State<AddPageOne> {
-  int user_id;
-  _ServesState(this.user_id);
+class _ServesState extends State<AddS> {
+  String uri = "";
   SignUp gser = SignUp();
+
   @override
   void initState() {
     super.initState();
     gser.getServ();
   }
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-  void _onRefresh() async {
-    // monitor network fetch
-    await Future.delayed(Duration(milliseconds: 1000));
-    // if failed,use refreshFailed()
-    _refreshController.refreshCompleted();
-
-    setState(() {
-      gser.getServ();
-    });
-  }
-   _savep(String token) async {
+     _savep(String token) async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'p';
     final value = token;
     prefs.setString(key, value);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: gser.getServ(),
-      builder: (BuildContext context, snapshot) {
-        if (snapshot.hasData) {
-          return SmartRefresher(
-            controller: _refreshController,
-            onRefresh: _onRefresh,
-            child: Scaffold(
-                appBar: AppBar(
-                            leading: IconButton(icon: Icon(Icons.arrow_back),onPressed: (){
-            setState(() {
-              _savep("no");
-            });
-          Navigator.pushReplacementNamed(context, "interface");
-        },),
-        automaticallyImplyLeading: false,
-                  backgroundColor: Colors.transparent,
-                  elevation: 0.0,
-                  title: Text(
-                    "اختر حرفتك ",
-                  ),
-                  centerTitle: true,
-                ),
-                floatingActionButton: FloatingActionButton.extended(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, "addser");
-                  },
-                  label: Text("اضافة حرفة"),
-                  backgroundColor: CupertinoColors.destructiveRed,
-                  icon: Icon(Icons.add),
-                ),
-                body: DoubleBackToCloseApp(
-                     snackBar: const SnackBar(
-            content: Text('اضغط مرة ثانية للخروج',textAlign: TextAlign.right,),
-          ),
-                                  child: Center(
-                    child: new Container(
-                        alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width - 10,
-                        child: Column(
-                          children: <Widget>[
-                            Divider(
-                              color: CupertinoColors.darkBackgroundGray,
-                            ),
-                            Expanded(
-                              child: GridView.builder(
-                                itemCount: snapshot.data.length,
-                                itemBuilder: (BuildContext context, int i) {
-// Text(snapshot.data[i]["name"].toString()),
-                                  var mydata = snapshot.data[i];
-                                  //  print(mydata["key"]);
-                                  return Container(
-                                    child: NewServ(
-                                        user_id: user_id,
-                                        ser_id: mydata["key"],
-                                        name: mydata["name"]),
-                                  );
-                                },
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 3),
-                              ),
-                            ),
-                          ],
-                        )),
-                  ),
-                )),
-          );
-        } else {
-          return Container(
-              color: Colors.white,
-              child: Center(child: CircularProgressIndicator()));
-        }
-      },
-    );
-  }
-}
 
-class NewServ extends StatelessWidget {
-  int user_id;
-  String name;
-  int ser_id;
-  NewServ({this.user_id, this.ser_id, this.name});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: OutlineButton(
-        highlightedBorderColor: Colors.transparent,
-        borderSide: BorderSide(width: 1, color: Colors.black.withOpacity(0.4)),
-        child: Text(
-          "$name",
-          style: TextStyle(color: Colors.black.withOpacity(0.7), fontSize: 20),
-        ),
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            // print(job_name);
-            return AddPageTwo(
-              user_id: user_id,
-              ser_id: ser_id,
-            );
-          }));
-        },
-      ),
-    );
-  }
-}
-
-class AddPageTwo extends StatefulWidget {
-  int user_id;
-  int ser_id;
-  AddPageTwo({this.user_id, this.ser_id});
-  @override
-  _AddServState createState() =>
-      _AddServState(user_id: user_id, ser_id: ser_id);
-}
-
-class _AddServState extends State<AddPageTwo> {
-  int user_id;
-  int ser_id;
-  _AddServState({this.user_id, this.ser_id});
-  TextEditingController _controller = new TextEditingController();
-  TextEditingController _phcontroller = new TextEditingController();
-  SignUp addcard = SignUp();
-  _savep(String token) async {
-    final prefs = await SharedPreferences.getInstance();
-    final key = 'p';
-    final value = token;
-    prefs.setString(key, value);
-  }
-
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
+  
+      body: FutureBuilder(
+        future: gser.getServ(),
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasData) {
+            return Scaffold(
+                  appBar: AppBar(
+        leading:  IconButton(
+          onPressed: (){
+             setState(() {
+              _savep(null);
+            });
+            Navigator.pushReplacementNamed(context, "interface");
+          },
+            icon: Icon(Icons.keyboard_arrow_right),
+          ),
+        title: Text("اختر حرفتك"),
         centerTitle: true,
-        title: Text("اضافة حرفة جديدة"),
       ),
-      body: Container(
-        padding: EdgeInsets.all(20),
-        child: ListView(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(50, 50, 50, 10),
-              child: TextField(
-                controller: _phcontroller,
-                textAlign: TextAlign.right,
-                maxLength: 11,
-                autofocus: true,
-                keyboardType: TextInputType.number,
-                enableInteractiveSelection: false,
-                cursorColor: CupertinoColors.destructiveRed,
-                decoration: InputDecoration(
-                    icon: Icon(Icons.phone),
-                    hintText: "رقم الهاتف",
-                    border: InputBorder.none),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(50, 50, 50, 10),
-              child: TextField(
-                controller: _controller,
-                textAlign: TextAlign.right,
-                maxLength: 100,
-                autofocus: true,
-                enableInteractiveSelection: false,
-                cursorColor: CupertinoColors.destructiveRed,
-                decoration: InputDecoration(
-                    icon: Icon(Icons.map),
-                    hintText: "العنوان",
-                    border: InputBorder.none),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(60, 15, 60, 15),
-              child: RaisedButton(
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
-                  child: Text(
-                    "اضافة ",
-                    textDirection: TextDirection.ltr,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.0,
-                      decoration: TextDecoration.none,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-                color: CupertinoColors.destructiveRed,
-                disabledColor: Colors.grey,
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(20.0)),
-                onPressed: () {
-                  addcard.addCardData(
-                      user_id: user_id,
-                      service_id: ser_id,
-                      numPhone: _phcontroller.text.trim(),
-                      location: _controller.text);
-                      setState(() {
-                        _savep('yes');
-                      });
-                  Navigator.pushReplacementNamed(context, "interface");
+                backgroundColor: Colors.transparent,
+                body: Center(
+                  child: new Container(
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width - 20,
+                      child: Column(
+                        children: <Widget>[
                 
-                },
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(left: 100, right: 100, top: 10),
-              child: OutlineButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[Icon(Icons.forward), Text("رجوع")],
+                          _search_in_body(),
+                          Expanded(
+                            child: ListView.builder(
+
+                              itemCount: snapshot.toString().contains(uri)?snapshot.data.length:0,
+                              itemBuilder: (BuildContext context, int i) {
+                                var mydata = snapshot.data[i];
+
+                                return mydata["name"].toString().contains(uri)? Container(
+                                  child: NewServ(
+                                        kays:mydata["id"],
+                                      job_name: mydata["name"]),
+                                ):Padding(padding: EdgeInsets.all(0),);
+                              },
+                  
+                            ),
+                          ),
+                        ],
+                      )),
                 ),
+      
+                );
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
+     
+    );
+  }
+
+  Widget _search_in_body() {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+        ),
+        child: TextField(
+          textAlign: TextAlign.right,
+          style: TextStyle(
+            fontSize: 15.0,
+            color: Colors.black,
+          ),
+          decoration: InputDecoration(
+            
+            contentPadding: EdgeInsets.all(10.0),
+            border: InputBorder.none,
+  
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.white,
               ),
-            )
-          ],
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            hintText: "اضغط للبحث في الحرف المتوفرة",
+            hintStyle: TextStyle(
+              fontSize: 15.0,
+              color: Colors.black,
+            ),
+          ),
+          maxLines: 1,
+          onChanged: (String value) {
+            setState(() {
+              uri = value;
+            });
+          },
         ),
       ),
     );
+  }
+}
+
+
+
+class NewServ extends StatelessWidget {
+  NewServ({this.job_name,this.kays});
+  var job_name;
+  var kays ;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.width / 5,
+      padding: EdgeInsets.all(5),
+      child: Container(
+        // color: Color(0xffBEB9C0),
+        child: OutlineButton(
+          highlightedBorderColor: Colors.red,
+          borderSide:
+              BorderSide(width: 0, color: Color(0xff594663)),
+          child: Text(
+            "$job_name",
+            style:
+                TextStyle(color: Color(0xff384064), fontSize: 25),
+          ),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              // print(job_name);
+              return AddCard(kays);
+            }));
+          },
+        ),
+      ),
+    );
+  }
+}
+
+
+class AddCard extends StatefulWidget {
+  AddCard(this.job);
+  final job ;
+  @override
+  _AddCardState createState() => _AddCardState(this.job);
+}
+
+class _AddCardState extends State<AddCard> {
+
+  SignUp database = SignUp();
+  TextEditingController _controller = new TextEditingController();
+  TextEditingController _phcontroller = new TextEditingController();
+    _AddCardState(this.job);
+  final job ;
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+       appBar: AppBar(
+         title: Text("اكمل البيانات"),
+         centerTitle: true,
+       ),
+       body:FutureBuilder(
+         future: database.getUser(),
+         builder: (context,snapshot){
+           if (snapshot.hasData) {
+            int user_id =snapshot.data["key"];
+             return Container(
+               child: ListView(
+                 children: <Widget>[
+        Padding(
+                padding: const EdgeInsets.fromLTRB(50, 50, 50, 10),
+                child: TextField(
+                  controller: _phcontroller,
+                  textAlign: TextAlign.right,
+                  maxLength: 14,
+                  autofocus: true,
+                  keyboardType: TextInputType.number,
+                  enableInteractiveSelection: false,
+                  cursorColor: CupertinoColors.destructiveRed,
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.phone),
+                      hintText: "رقم الهاتف",
+                      border: InputBorder.none),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(50, 50, 50, 10),
+                child: TextField(
+                  controller: _controller,
+                  textAlign: TextAlign.right,
+                  maxLength: 100,
+                  autofocus: true,
+                  enableInteractiveSelection: false,
+                  cursorColor: CupertinoColors.destructiveRed,
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.map),
+                      hintText: "العنوان",
+                      border: InputBorder.none),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(60, 15, 60, 15),
+                child: RaisedButton(
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
+                    child: Text(
+                      "اضافة ",
+                      textDirection: TextDirection.ltr,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.0,
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                  color: CupertinoColors.destructiveRed,
+                  disabledColor: Colors.grey,
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(20.0)),
+                  onPressed: () {
+                    
+                   print(job.toString());
+
+
+
+                    database.addCardData(
+                         user_id: user_id,
+                        service_id: job,
+                        numPhone: _phcontroller.text.trim(),
+                        location: _controller.text);
+                    Navigator.pushReplacementNamed(context, "interface");
+                    // _saveadd("card added");
+                  },
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 100, right: 100, top: 10),
+                child: OutlineButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[Icon(Icons.forward), Text("رجوع")],
+                  ),
+                ),
+              ),
+
+                 ],
+               ),
+             );
+             
+           } else {
+             return Center(child: CircularProgressIndicator(),);
+           }
+         },
+       )
+    );
+  }
+    void _showDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text(
+              'خطأ',
+              textAlign: TextAlign.center,
+            ),
+            content: new Text(
+              'الحد الاقصى لعدد الحرف هو 4',
+              textAlign: TextAlign.right,
+            ),
+            actions: <Widget>[
+              new OutlineButton(
+                child: new Text(
+                  'اغلاق',
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 }

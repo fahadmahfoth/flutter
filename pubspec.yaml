@@ -28,10 +28,12 @@ dependencies:
   cached_network_image: ^1.1.1
   shared_preferences: ^0.5.3+4  
   pull_to_refresh: ^1.5.4
+  quiver: '>=2.0.0 <3.0.0'
   loader_search_bar: ^1.0.3+3
   intro_slider: ^2.2.7
   bottom_navy_bar: ^5.2.0
   double_back_to_close_app: ^0.1.1
+  multiple_select: ^0.1.12
   # fancy_bottom_navigation: ^0.3.2
 dev_dependencies:
   flutter_test:

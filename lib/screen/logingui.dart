@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
             _showDialog();
             msgStatus = 'Check email or password';
           } else {
-            Navigator.pushReplacementNamed(context, 'interface');
+            Navigator.pushReplacementNamed(context, 'addcard');
             databaseHelper.status = true;
           }
         });
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
         automaticallyImplyLeading: false,
         title: Text("حرفة"),
         centerTitle: true,
-        backgroundColor: CupertinoColors.lightBackgroundGray,
+        backgroundColor: Colors.white,
         elevation: 0.0,
       ),
       body: DoubleBackToCloseApp(
@@ -78,7 +78,8 @@ class _LoginPageState extends State<LoginPage> {
           ),
               child: Container(
           decoration: new BoxDecoration(
-            color: CupertinoColors.lightBackgroundGray,
+            color: Colors.white
+            // color: CupertinoColors.lightBackgroundGray,
           ),
           padding: EdgeInsets.only(top: 40),
           child: ListView(
@@ -90,7 +91,10 @@ class _LoginPageState extends State<LoginPage> {
                   ///////////  background///////////
                   new Container(
                     decoration: new BoxDecoration(
-                        color: CupertinoColors.lightBackgroundGray),
+                      color: Colors.white
+                        // color: CupertinoColors.lightBackgroundGray
+                        
+                        ),
                   ),
 
                   Positioned(
@@ -101,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                         children: <Widget>[
                           Card(
                             elevation: 4.0,
-                            color: Colors.white,
+                            color: CupertinoColors.lightBackgroundGray,
                             margin: EdgeInsets.only(left: 20, right: 20),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)),
@@ -113,6 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                                   /////////////  Email//////////////
 
                                   TextField(
+                                    textAlign: TextAlign.left,
                                     style: TextStyle(color: Color(0xFF000000)),
                                     controller: _emailController,
                                     cursorColor: Color(0xFF9b9b9b),
@@ -133,6 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                                   /////////////// password////////////////////
 
                                   TextField(
+                                    textAlign: TextAlign.left,
                                     style: TextStyle(color: Color(0xFF000000)),
                                     cursorColor: Color(0xFF9b9b9b),
                                     controller: _passwordController,

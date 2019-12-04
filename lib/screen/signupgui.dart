@@ -51,10 +51,10 @@ class _SignUpPageState extends State<SignUpPage> {
             .whenComplete(() {
           if (databaseHelper.status == false) {
             print(readtwo());
-            _showDialog();
+            _showDialog('خطأ','تاكد من كتابة المعلومات بشكل صحيح');
             msgStatus = 'Check your information';
           } else {
-            Navigator.pushReplacementNamed(context, 'addcard');
+            Navigator.pushReplacementNamed(context, 'login');
             databaseHelper.status = true;
           }
         });
@@ -73,7 +73,7 @@ class _SignUpPageState extends State<SignUpPage> {
         centerTitle: true,
         title: Text("حرفة"),
         elevation: 0.0,
-        backgroundColor: CupertinoColors.lightBackgroundGray,
+        backgroundColor: Colors.white,
       ),
       body: DoubleBackToCloseApp(
                 snackBar: const SnackBar(
@@ -81,7 +81,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
               child: Container(
           decoration: new BoxDecoration(
-            color: CupertinoColors.lightBackgroundGray,
+            color: Colors.white,
           ),
           padding: EdgeInsets.only(top: 40),
           child: ListView(
@@ -99,7 +99,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         children: <Widget>[
                           Card(
                             elevation: 4.0,
-                            color: Colors.white,
+                             color: CupertinoColors.lightBackgroundGray,
                             margin: EdgeInsets.only(left: 20, right: 20),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)),
@@ -111,6 +111,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   /////////////  Email//////////////
 
                                   TextField(
+                                    textAlign: TextAlign.left,
                                     style: TextStyle(color: Color(0xFF000000)),
                                     controller: _nameController,
                                     cursorColor: Color(0xFF9b9b9b),
@@ -129,6 +130,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   ),
 
                                   TextField(
+                                    textAlign: TextAlign.left,
                                     style: TextStyle(color: Color(0xFF000000)),
                                     controller: _emailController,
                                     cursorColor: Color(0xFF9b9b9b),
@@ -149,6 +151,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   /////////////// password////////////////////
 
                                   TextField(
+                                    textAlign: TextAlign.left,
                                     style: TextStyle(color: Color(0xFF000000)),
                                     cursorColor: Color(0xFF9b9b9b),
                                     controller: _passwordController,
@@ -212,17 +215,17 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  void _showDialog() {
+  void _showDialog(String title,String body,) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: new Text(
-              'خطأ',
+              title,
               textAlign: TextAlign.center,
             ),
             content: new Text(
-              'تاكد من كتابة المعلومات بشكل صحيح',
+              body,
               textAlign: TextAlign.right,
             ),
             actions: <Widget>[

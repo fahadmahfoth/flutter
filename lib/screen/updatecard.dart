@@ -1,7 +1,13 @@
+import 'dart:async';
+
+import 'package:Herfa/screen/addverves.dart';
+import 'package:Herfa/screen/home.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Herfa/user/usertoken.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class UpdatePageOne extends StatefulWidget {
   int user_id;
@@ -19,9 +25,24 @@ class _ServesState extends State<UpdatePageOne> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     gser.getServ();
+  }
+  Future<Null> onRef() async{
+      setState(() {
+       gser.getServ();
+    });
+
+    Completer<Null> completer = new Completer<Null>();
+
+    new Future.delayed(new Duration(seconds: 3)).then((_){
+      completer.complete();
+    });
+
+    return completer.future ;
+     
+
   }
 
   @override
@@ -39,47 +60,43 @@ class _ServesState extends State<UpdatePageOne> {
                 ),
                 centerTitle: true,
               ),
-              floatingActionButton: FloatingActionButton.extended(
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, "addser");
-                },
-                label: Text("اضافة حرفة"),
-                backgroundColor: CupertinoColors.destructiveRed,
-                icon: Icon(Icons.add),
-              ),
+              
               body: DoubleBackToCloseApp(
-                        snackBar: const SnackBar(
-            content: Text('اضغط مرة ثانية للخروج',textAlign: TextAlign.right,),
-          ),
-                              child: Center(
-                  child: new Container(
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width - 10,
-                      child: Column(
-                        children: <Widget>[
-                          Divider(
-                            color: CupertinoColors.darkBackgroundGray,
-                          ),
-                          Expanded(
-                            child: GridView.builder(
-                              itemCount: snapshot.data.length,
-                              itemBuilder: (BuildContext context, int i) {
-                                var mydata = snapshot.data[i];
-                                return Container(
-                                  child: NewServ(
-                                      keys: keys,
-                                      user_id: user_id,
-                                      ser_id: mydata["key"],
-                                      name: mydata["name"]),
-                                );
-                              },
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3),
+                snackBar: const SnackBar(
+                  content: Text('اضغط مرة ثانية للخروج',textAlign: TextAlign.right,),
+                ),
+                child:RefreshIndicator(
+                  onRefresh: onRef,
+                                  child: Center(
+                    child: new Container(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width - 10,
+                        child: Column(
+                          children: <Widget>[
+                            Divider(
+                              color: CupertinoColors.darkBackgroundGray,
                             ),
-                          ),
-                        ],
-                      )),
+                            Expanded(
+                              child: GridView.builder(
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (BuildContext context, int i) {
+                                  var mydata = snapshot.data[i];
+                                  return Container(
+                                    child: NewServ(
+                                        keys: keys,
+                                        user_id: user_id,
+                                        ser_id: mydata["id"],
+                                        name: mydata["name"]),
+                                  );
+                                },
+                                gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3),
+                              ),
+                            ),
+                          ],
+                        )),
+                  ),
                 ),
               ));
         } else {
@@ -152,14 +169,14 @@ class _AddServState extends State<UpdatePageTwo> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         centerTitle: true,
-        title: Text("تعديل الحرفة "),
+         title: Text("اكمل البيانات"),
       ),
       body: DoubleBackToCloseApp(
-            snackBar: const SnackBar(
-            content: Text('اضغط مرة ثانية للخروج',textAlign: TextAlign.right,),
-          ),
+        snackBar: const SnackBar(
+          content: Text('اضغط مرة ثانية للخروج',textAlign: TextAlign.right,),
+        ),
 
-              child: Container(
+        child: Container(
           padding: EdgeInsets.all(20),
           child: ListView(
             children: <Widget>[
@@ -168,7 +185,7 @@ class _AddServState extends State<UpdatePageTwo> {
                 child: TextField(
                   controller: _phcontroller,
                   textAlign: TextAlign.right,
-                  maxLength: 11,
+                  maxLength: 14,
                   autofocus: true,
                   keyboardType: TextInputType.number,
                   enableInteractiveSelection: false,
@@ -199,7 +216,7 @@ class _AddServState extends State<UpdatePageTwo> {
                 child: RaisedButton(
                   child: Padding(
                     padding:
-                        EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
+                    EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
                     child: Text(
                       "اضافة ",
                       textDirection: TextDirection.ltr,
@@ -220,8 +237,7 @@ class _AddServState extends State<UpdatePageTwo> {
                     print(user_id);
                     addcard.updateCardData(
                         keys: keys,
-                        user_id: user_id,
-                        service_id: ser_id,
+                        serviceId: ser_id,
                         numPhone: _phcontroller.text.trim(),
                         location: _controller.text);
                     Navigator.pushReplacementNamed(context, "interface");
@@ -248,3 +264,6 @@ class _AddServState extends State<UpdatePageTwo> {
     );
   }
 }
+
+
+

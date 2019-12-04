@@ -12,6 +12,7 @@ class Profile extends StatefulWidget {
 }
 
 class _tabsHomeState extends State<Profile> {
+
   _save(String token) async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'token';
@@ -35,22 +36,23 @@ class _tabsHomeState extends State<Profile> {
     final value = prefs.get(key) ?? null;
     if (value == null) {
       Navigator.of(context).pushReplacementNamed("login");
-    }
-  }
-    readp() async {
-    final prefs = await SharedPreferences.getInstance();
+    }else{
+    final prefs2 = await SharedPreferences.getInstance();
     final key = 'p';
-    final value = prefs.get(key) ?? null;
-    if (value.toString().contains("no")) {
+    final value = prefs2.get(key) ?? false;
+    print(value);
+    if (!value&&value==false) {
       print(value.toString());
       Navigator.of(context).pushReplacementNamed("addcard");
     }
+    }
   }
+
 
   @override
   void initState() {
+    
     read();
-    readp();
     super.initState();
     guser.getUser();
   }
@@ -64,11 +66,14 @@ class _tabsHomeState extends State<Profile> {
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
             var mydata = snapshot.data;
-            // print(mydata["id"]);
+           print(mydata["id"]);
+           print(mydata["is_stuff"]);
+
             return new Newscard(
-              user_id: mydata['key'],
+              user_id: mydata['id'],
               name: mydata['name'],
               email: mydata['email'],
+              is_stuff: mydata["is_stuff"],
               created_at: mydata['created_at'],
               updated_at: mydata['updated_at'],
             );
@@ -96,12 +101,14 @@ class Newscard extends StatelessWidget {
   }
 
   Newscard(
-      {this.user_id, this.name, this.email, this.created_at, this.updated_at});
+      {this.user_id, this.name, this.email,this.is_stuff, this.created_at, this.updated_at});
   final int user_id;
   final String name;
   final String email;
+  final String is_stuff ;
   final String created_at;
   final String updated_at;
+
 
   var value;
 
@@ -109,7 +116,7 @@ class Newscard extends StatelessWidget {
     final prefs = await SharedPreferences.getInstance();
     final key = 'addcard';
     value = prefs.get(key) ?? null;
-    // print(value);
+    // print(value);MyCard
   }
 
   SignUp getcard = SignUp();
@@ -121,24 +128,30 @@ class Newscard extends StatelessWidget {
       builder: (BuildContext context, snapshot) {
         if (snapshot.hasData) {
           var cardData = snapshot.data;
-          var keys = cardData["key"];
-          var name = cardData["user name"];
+          var keys = cardData["id"];
+          var name = cardData["User name"];
           var Job = cardData["Job"];
-          var numPhone = cardData["numPhone"];
-          var location = cardData["location"];
+          var numPhone = cardData["Phone"];
+          var location = cardData["Location"];
           return Scaffold(
-            appBar: AppBar(
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(CupertinoIcons.pen,color: Color(0xff384064),),
-                  onPressed: () {
-                    Navigator.push(context,
+            floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+
+            floatingActionButton: FloatingActionButton.extended(
+              backgroundColor: Colors.green,
+
+              label: Text("تعديل"),
+              onPressed: (){
+                 Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return UpdatePageOne(keys, user_id);
+                      return UpdatePageOne(
+                        user_id,keys
+                      );
                     }));
-                  },
-                )
-              ],
+
+              },
+              
+            ),
+            appBar: AppBar(
               title: Text('البطاقة التعريفية',
                   style: TextStyle(color: Color(0xff384064))),
               centerTitle: true,
@@ -164,7 +177,7 @@ class Newscard extends StatelessWidget {
                         style: TextStyle(color:Color(0xff384064) ),
                       ),
                       subtitle: Text(
-                        name,
+                        name.toString(),
                         textAlign: TextAlign.right,
                         style: TextStyle(fontSize: 25,color: Color(0xff384064)),
                       ),
@@ -182,7 +195,7 @@ class Newscard extends StatelessWidget {
                             style: TextStyle(color:Color(0xff384064) )
                       ),
                       subtitle: Text(
-                        email,
+                        email.toString(),
                         textAlign: TextAlign.right,
                         style: TextStyle(fontSize: 25,color:Color(0xff384064)),
                       ),
@@ -200,7 +213,7 @@ class Newscard extends StatelessWidget {
                             style: TextStyle(color:Color(0xff384064) )
                       ),
                       subtitle: Text(
-                        numPhone,
+                        numPhone.toString(),
                         textAlign: TextAlign.right,
                         style: TextStyle(fontSize: 25,color:Color(0xff384064)),
                       ),
@@ -247,13 +260,38 @@ class Newscard extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
+                   is_stuff.contains("1")? Padding(
+                      padding: EdgeInsets.only(bottom: 25),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height / 18,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        child: OutlineButton(
+                          highlightColor: Colors.green,
+                          highlightedBorderColor: Colors.green,
+                          borderSide:
+                              BorderSide(style: BorderStyle.solid, width: 1),
+                          focusColor: Colors.green,
+                          color: Colors.green,
+                          child: Text("اضافة حرفة",
+                              style: TextStyle(
+                                  fontSize:
+                                      MediaQuery.of(context).size.width / 20,
+                                  color: Colors.green)),
+                          onPressed: () {
+                            
+                            Navigator.pushReplacementNamed(
+                                context, "addserv");
+                          },
+                        ),
+                      ),
+                    ):Padding(padding: EdgeInsets.all(0),),
                     Padding(
                       padding: EdgeInsets.only(bottom: 25),
                       child: Container(
                         height: MediaQuery.of(context).size.height / 18,
                         width: MediaQuery.of(context).size.width / 2.5,
                         child: OutlineButton(
-                          highlightColor: Colors.white,
+                          highlightColor: Colors.red,
                           highlightedBorderColor: Colors.red,
                           borderSide:
                               BorderSide(style: BorderStyle.solid, width: 1),
@@ -272,6 +310,7 @@ class Newscard extends StatelessWidget {
                         ),
                       ),
                     ),
+                     
                   ],
                 ),
               ),

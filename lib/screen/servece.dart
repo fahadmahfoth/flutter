@@ -34,35 +34,13 @@ class _ServesState extends State<Serves> {
                     width: MediaQuery.of(context).size.width - 20,
                     child: Column(
                       children: <Widget>[
-                        // Text(
-                        //   "الحرف المتوفرة",
-                        //   style: TextStyle(fontSize: 30),
-                        // ),
-                        // Divider(
-                        //   color: CupertinoColors.darkBackgroundGray,
-                        // ),
+              
                         _search_in_body(),
                         Expanded(
                           child: ListView.builder(
 
-                            // decoration: InputDecoration(hintText: "البحث",
-                            // alignLabelWithHint: true,
-                            // border: InputBorder.none,
-                            // hintStyle: TextStyle(
-                              
-                            // )
-                            
-                            // ),
-                            
-                            // onChanged: (String value) {
-                            //   setState(() {
-                            //     uri = value;
-                            //   });
-                            // },
-
                             itemCount: snapshot.toString().contains(uri)?snapshot.data.length:0,
                             itemBuilder: (BuildContext context, int i) {
-// Text(snapshot.data[i]["name"].toString()),
                               var mydata = snapshot.data[i];
 
                               return mydata["name"].toString().contains(uri)? Container(
@@ -71,9 +49,7 @@ class _ServesState extends State<Serves> {
                                     job_name: mydata["name"]),
                               ):Padding(padding: EdgeInsets.all(0),);
                             },
-                            //   gridDelegate:
-                            //       SliverGridDelegateWithFixedCrossAxisCount(
-                            //           crossAxisCount: 2),
+                
                           ),
                         ),
                       ],
@@ -91,11 +67,13 @@ class _ServesState extends State<Serves> {
       padding: EdgeInsets.all(10),
       child: Container(
         decoration: BoxDecoration(
+          
           borderRadius: BorderRadius.all(
             Radius.circular(10.0),
           ),
         ),
         child: TextField(
+          autofocus: false,
           textAlign: TextAlign.right,
           style: TextStyle(
             fontSize: 15.0,
@@ -103,17 +81,18 @@ class _ServesState extends State<Serves> {
           ),
           decoration: InputDecoration(
             
+            
             contentPadding: EdgeInsets.all(10.0),
-            border: InputBorder.none,
-            // border: OutlineInputBorder(
-            //   borderRadius: BorderRadius.circular(10.0),
-            //   borderSide: BorderSide(
-            //     color: Colors.white,
-            //   ),
-            // ),
-            enabledBorder: OutlineInputBorder(
+            // border: InputBorder.none,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
                 color: Colors.white,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Color(0xff16324A),
               ),
               borderRadius: BorderRadius.circular(10.0),
             ),

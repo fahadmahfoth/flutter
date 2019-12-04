@@ -4,11 +4,13 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AddServ extends StatefulWidget {
+ 
   @override
   _AddServState createState() => _AddServState();
 }
 
 class _AddServState extends State<AddServ> {
+
   TextEditingController _controller = new TextEditingController();
 
   void addData(String name) async {
@@ -16,7 +18,7 @@ class _AddServState extends State<AddServ> {
     final key = 'token';
     final value = prefs.get(key) ?? null;
 
-    String myUrl = "http://herfa.codeforiraq.org/api/services?name=$name";
+    String myUrl = "http://herfa.codeforiraq.org/api/auth/jobs";
     http.post(myUrl, headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer $value'
@@ -79,8 +81,11 @@ class _AddServState extends State<AddServ> {
                     borderRadius: new BorderRadius.circular(20.0)),
                 onPressed: () {
                   print(_controller.text);
-                  addData(_controller.text);
-                  Navigator.pushNamed(context, "addcard");
+            
+                    addData(_controller.text);
+                  Navigator.pushNamed(context, "interface");
+                  
+                 
                 },
               ),
             ),
@@ -89,4 +94,5 @@ class _AddServState extends State<AddServ> {
       ),
     );
   }
+ 
 }

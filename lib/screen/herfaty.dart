@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Herfa/user/usertoken.dart';
@@ -7,40 +5,25 @@ import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 
 var mydata;
 
-class Cards extends StatefulWidget {
-  Cards({this.job_name});
-  var job_name;
+class MyCard extends StatefulWidget {
+  MyCard({this.user_id});
+  final int user_id;
 
   @override
-  _tabsHomeState createState() => _tabsHomeState(job_name);
+  _tabsHomeState createState() => _tabsHomeState(user_id);
 }
 
-class _tabsHomeState extends State<Cards> {
+class _tabsHomeState extends State<MyCard> {
   String uri = "";
 
-  _tabsHomeState(this.job_name);
+  _tabsHomeState(this.user_id);
 
-  String job_name;
+  int user_id;
   SignUp gcard = SignUp();
 
   @override
   void initState() {
     super.initState();
-    gcard.getCard(job_name);
-  }
-
-   Future<Widget> noInternet() async{
-   
-
-    Completer<Null> completer = new Completer<Null>();
-
-    new Future.delayed(new Duration(seconds: 10)).then((_){
-      completer.complete();
-    });
-
-    return Center(child: Text("لايوجد حرفيين في هذا القسم"),) ;
-     
-
   }
 
   @override
@@ -48,15 +31,14 @@ class _tabsHomeState extends State<Cards> {
     return Container(
       child: Scaffold(
         body: new FutureBuilder(
-          future: gcard.getCard(job_name),
+          future: gcard.getusercard(user_id),
           builder: (BuildContext context, snapshot) {
             if (snapshot.hasData) {
               mydata = snapshot.data;
-              print(mydata.toString());
               return new Scaffold(
                   appBar: AppBar(
                     title: Text(
-                      "$job_name",
+                      mydata,
                       style: TextStyle(color: Color(0xff384064)),
                     ),
                     centerTitle: true,
@@ -64,7 +46,6 @@ class _tabsHomeState extends State<Cards> {
                     elevation: 0.0,
                     automaticallyImplyLeading: false,
                   ),
-                  
                   floatingActionButton: FloatingActionButton.extended(
                     label: Row(
                       children: <Widget>[
@@ -73,7 +54,7 @@ class _tabsHomeState extends State<Cards> {
                           Icons.arrow_back_ios,
                           color: Colors.white,
                         ),
-                        Text(
+                          Text(
                           "رجوع",
                           style: TextStyle(color: Colors.white),
                         ),
@@ -88,7 +69,7 @@ class _tabsHomeState extends State<Cards> {
                     elevation: 0.0,
                   ),
                   floatingActionButtonLocation:
-                  FloatingActionButtonLocation.endTop,
+                      FloatingActionButtonLocation.startTop,
                   body: DoubleBackToCloseApp(
                     snackBar: const SnackBar(
                       content: Text(
@@ -117,28 +98,25 @@ class _tabsHomeState extends State<Cards> {
                                     itemBuilder: (context, int i) {
                                       return mydata[i].toString().contains(uri)
                                           ? new Newscard(
-                                        id: mydata[i]['id'],
-                                        user_name: mydata[i]['User name'],
-                                        job: mydata[i]['Job'],
-                                        numPhone: mydata[i]['Phone'],
-                                        location: mydata[i]['Location'],
-                                      )
+                                              id: mydata[i]['key'],
+                                              user_name: mydata[i]['user name'],
+                                              job: mydata[i]['Job'],
+                                              numPhone: mydata[i]['numPhone'],
+                                              location: mydata[i]['location'],
+                                            )
                                           : Padding(
-                                        padding: EdgeInsets.all(0),
-                                      );
+                                              padding: EdgeInsets.all(0),
+                                            );
                                     })),
                           ],
                         )),
                   ));
             } else {
-             
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Center(
-                    child:
-                    
-                     new CircularProgressIndicator(
+                    child: new CircularProgressIndicator(
                       backgroundColor: Colors.white,
                     ),
                   ),
@@ -167,7 +145,6 @@ class _tabsHomeState extends State<Cards> {
       padding: EdgeInsets.all(10),
       child: Container(
         decoration: BoxDecoration(
-          
           borderRadius: BorderRadius.all(
             Radius.circular(10.0),
           ),
@@ -176,21 +153,21 @@ class _tabsHomeState extends State<Cards> {
           textAlign: TextAlign.right,
           style: TextStyle(
             fontSize: 15.0,
-            color: Color(0xff16324A),
+            color: Colors.black,
           ),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.all(10.0),
-            // border: InputBorder.none,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(
-                color: Color(0xff16324A),
-              ),
-            ),
+            border: InputBorder.none,
+            // border: OutlineInputBorder(
+            //   borderRadius: BorderRadius.circular(10.0),
+            //   borderSide: BorderSide(
+            //     color: Colors.white,
+            //   ),
+            // ),
 
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: Color(0xff16324A)
+                color: Colors.white,
               ),
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -249,7 +226,7 @@ class Newscard extends StatelessWidget {
                       "رقم هاتف :  $numPhone",
                       textAlign: TextAlign.right,
                       style:
-                      TextStyle(fontSize: 25.0, color: Color(0xff384064)),
+                          TextStyle(fontSize: 25.0, color: Color(0xff384064)),
                     ),
                     subtitle: Text(
                       "المكان : $location ",
@@ -266,5 +243,56 @@ class Newscard extends StatelessWidget {
       ],
     );
 
+    //  Container(
+    //   padding: EdgeInsets.all(10),
+    //   child: Card(
+    //     // color: Colors.white.withOpacity(0.75),
+    //     child: OutlineButton(
+    //       onPressed: () {},
+    //       child: new Column(
+    //         mainAxisSize: MainAxisSize.min,
+    //         children: <Widget>[
+    //           Stack(alignment: Alignment.center, children: <Widget>[
+    //             Container(
+    //                 height: MediaQuery.of(context).size.height * 8 / 100,
+    //                 width: double.infinity,
+    //                 padding: EdgeInsets.all(5),
+    //                 decoration: new BoxDecoration(
+    //                     borderRadius: new BorderRadius.only(
+    //                         //topLeft:  const  Radius.circular(40.0),
+    //                         bottomLeft: const Radius.circular(00.0))),
+    //                 child: Text(
+    //                   "$user_name".toUpperCase()[0] +
+    //                       "$user_name".replaceRange(0, 1, ""),
+    //                   style: TextStyle(fontSize: 24.0),
+    //                   textAlign: TextAlign.center,
+    //                 )),
+    //           ]),
+    //           Padding(
+    //             padding: const EdgeInsets.only(
+    //                 left: 50, right: 50, bottom: 5, top: 5),
+    //             child: Divider(
+    //               color: Color.fromRGBO(49, 185, 163, 0.93),
+    //             ),
+    //           ),
+    //           new ListTile(
+    //             title: new Text(
+    //               "رقم هاتف :  $numPhone",
+    //               textAlign: TextAlign.right,
+    //               style: TextStyle(
+    //                 fontSize: 18.0,
+    //               ),
+    //             ),
+    //             subtitle: Text(
+    //               "المكان : $location ",
+    //               textAlign: TextAlign.right,
+    //               style: TextStyle(fontSize: 20),
+    //             ),
+    //           )
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 }
